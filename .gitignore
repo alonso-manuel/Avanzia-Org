@@ -45,3 +45,6 @@ yarn-error.log
 
 # Paquete generado por scripts/empaquetar-produccion.ps1
 /avanzia-landing-produccion.zip
+
+# Archivos generados para subir a producción (pueden contener datos)
+/despliegue/

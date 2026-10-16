@@ -30,7 +30,15 @@ Genera `avanzia-landing-produccion.zip` (~17 MB): frontend compilado, dependenci
 4. **`.env`**: copiar `.env.production.example` como `.env` y completar base de datos (la de Studio), contraseña del correo y, mientras se prueba, `APP_URL` con la dirección del sitio de prueba.
 5. **Permisos**: `storage/` y `bootstrap/cache/` deben poder escribirse (755 en carpetas suele bastar).
 
-## 3. Comandos (cPanel → *Terminal*)
+## 3a. Sin Terminal (situación actual)
+
+1. **Clave de la aplicación**: en local, `php artisan key:generate --show` (no modifica tu `.env` local). Copiar el resultado (`base64:…`) en `APP_KEY` del `.env` del servidor.
+2. **Tablas**: generar el SQL con las tablas de la landing (cursos y convenios con datos; testimonios, interacciones y solicitudes vacías; y `landing_migrations` con todas las migraciones marcadas como hechas) e importarlo en **phpMyAdmin → base de producción → Importar**. No toca tablas de Studio.
+   - Se genera desde la base local con `mysqldump` (ver cómo en el historial del proyecto; el archivo queda en `despliegue/`, que no se sube al repositorio).
+   - **Importarlo una sola vez**: incluye `DROP TABLE IF EXISTS` de las tablas de la landing, así que reimportarlo borraría los testimonios y solicitudes que ya existan en producción.
+3. **Cachés**: opcionales. Sin `config:cache` el sitio funciona igual.
+
+## 3b. Con Terminal (cPanel → *Terminal*)
 
 ```bash
 cd ~/avanzia-landing
@@ -52,7 +60,9 @@ Procesa la cola `landing` (correos de solicitudes de convenio). Sin esto, las so
 
 ## 5. Sitio de prueba
 
-En cPanel → *Domains*, apuntar la **raíz del documento** del sitio de prueba a:
+Usar un **subdominio** (p. ej. `prueba.avanzia.org`), no una subcarpeta como `avanzia.org/landing/`: el sitio usa rutas desde la raíz (`/convenios`, `/images/…`, `/opiniones`) que en una subcarpeta irían al WordPress, y además el proyecto quedaría dentro de una carpeta pública.
+
+cPanel → *Domains* → *Create A New Domain* → `prueba.avanzia.org`, desmarcar "Share document root" y poner como **raíz del documento**:
 
 ```
 /home/fmqndrdnls/avanzia-landing/public
