@@ -1,0 +1,78 @@
+# Despliegue en producción (Spaceship · cPanel)
+
+Guía para subir la landing al hosting compartido. El hosting no compila ni tiene Node: todo se prepara en local y se sube un .zip.
+
+> **Regla de oro:** el proyecto va **fuera** de cualquier carpeta pública. Solo su subcarpeta `public/` se expone a internet. Si el proyecto entero queda dentro de una carpeta pública (por ejemplo `avanzia.org/landing/`), cualquiera podría descargar `.env` con las claves de la base de datos y del correo.
+
+Usuario del hosting: `/home/fmqndrdnls`. Estructura final:
+
+```
+/home/fmqndrdnls/
+├── avanzia-landing/          ← el proyecto (NO público)
+│   ├── app/ config/ vendor/ … .env
+│   └── public/               ← lo único que ve internet
+└── avanzia.org/              ← WordPress actual (se deja intacto como respaldo)
+```
+
+## 1. Preparar el paquete (en local)
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts\empaquetar-produccion.ps1
+```
+
+Genera `avanzia-landing-produccion.zip` (~17 MB): frontend compilado, dependencias sin las de desarrollo, sin `.env`, sin `public/hot` ni tests.
+
+## 2. Preparar el hosting (una sola vez)
+
+1. **PHP**: cPanel → *Select PHP Version* → 8.3 o 8.4, con `pdo_mysql`, `mbstring`, `fileinfo`, `openssl`, `zip`.
+2. **Respaldo de la base de datos de Studio** (es la misma): cPanel → *Backup* o *phpMyAdmin → Exportar*. Guardarlo fuera del servidor.
+3. **Subir y descomprimir**: *File Manager* → en `/home/fmqndrdnls` crear la carpeta `avanzia-landing`, subir el .zip ahí y *Extract*. Borrar el .zip después.
+4. **`.env`**: copiar `.env.production.example` como `.env` y completar base de datos (la de Studio), contraseña del correo y, mientras se prueba, `APP_URL` con la dirección del sitio de prueba.
+5. **Permisos**: `storage/` y `bootstrap/cache/` deben poder escribirse (755 en carpetas suele bastar).
+
+## 3. Comandos (cPanel → *Terminal*)
+
+```bash
+cd ~/avanzia-landing
+php artisan key:generate --force
+php artisan migrate --force          # crea solo las tablas de la landing; no toca las de Studio
+php artisan db:seed --force          # cursos reales y convenios (sin datos de ejemplo)
+php artisan config:cache && php artisan route:cache && php artisan view:cache
+```
+
+`migrate` usa la tabla `landing_migrations` (Studio usa `migrations`) y las migraciones de tablas compartidas se saltan si ya existen. Ver `docs/CONTEXTO_AVANZIA.md`, "Base de datos compartida".
+
+## 4. Cron (cPanel → *Cron Jobs*, cada minuto)
+
+```
+* * * * * cd /home/fmqndrdnls/avanzia-landing && php artisan schedule:run >> /dev/null 2>&1
+```
+
+Procesa la cola `landing` (correos de solicitudes de convenio). Sin esto, las solicitudes se guardan pero el aviso no sale.
+
+## 5. Sitio de prueba
+
+En cPanel → *Domains*, apuntar la **raíz del documento** del sitio de prueba a:
+
+```
+/home/fmqndrdnls/avanzia-landing/public
+```
+
+Probar: portada, catálogo y temarios, carrito y WhatsApp, testimonios (publicar uno), convenios (enviar una solicitud y verificar que llegue el correo), validación de certificados, libro de reclamaciones, páginas legales, `/sitemap.xml`, redirecciones (`/cursos/` → portada) y la vista en celular.
+
+## 6. Lanzamiento: cambiar avanzia.org
+
+1. Cambiar la **raíz del documento** de `avanzia.org` a `/home/fmqndrdnls/avanzia-landing/public`. El WordPress queda intacto en `avanzia.org/`.
+2. En `.env`: `APP_URL=https://avanzia.org` y luego `php artisan config:cache`.
+3. Google Search Console: verificar el dominio y enviar `https://avanzia.org/sitemap.xml`.
+
+**Volver atrás**: devolver la raíz del documento a `/home/fmqndrdnls/avanzia.org`. El WordPress vuelve en un minuto.
+
+## Actualizaciones posteriores
+
+Generar el .zip de nuevo, subirlo, descomprimir **encima** (sin borrar `.env` ni `storage/`) y ejecutar:
+
+```bash
+php artisan migrate --force
+php artisan optimize:clear && php artisan config:cache && php artisan route:cache && php artisan view:cache
+```

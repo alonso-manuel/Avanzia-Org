@@ -1,0 +1,2728 @@
+<!doctype html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Avanzia | Asistente Docente IA y Capacitaciones</title>
+
+        <!-- SEO Keywords -->
+        <meta
+            name="keywords"
+            content="capacitaciones para docentes, cursos online para docentes, cursos con certificación oficial, inteligencia artificial para docentes, google workspace para profesores, capacitación docente online, cursos en vivo para docentes, clases asincrónicas, certificación docente digital, capacitación virtual educativa, formación docente continua, cursos pedagógicos online, IA en educación, herramientas google para profesores, cursos de investigación académica, cursos de diseño educativo, plataforma de capacitación docente, progressio latam, capacitación sincrónica google meet, cursos online américa latina, educación continua docente, capacitaciones certificadas para profesores, generador de sesiones de clase con ia, rúbricas con inteligencia artificial, asistente virtual para docentes, IA para docentes, IA educativa"
+        />
+
+        <!-- Tipografía Global: Inter y STUDIO (Bricolage, Caveat, Figtree) -->
+        <link
+            href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Caveat:wght@600;700&family=Figtree:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800;900&display=swap"
+            rel="stylesheet"
+        />
+
+        <!-- FontAwesome -->
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        />
+
+        <!-- Tailwind CSS -->
+        <script src="https://cdn.tailwindcss.com"></script>
+        <script>
+            tailwind.config = {
+                theme: {
+                    extend: {
+                        colors: {
+                            avanzia: {
+                                orange: '#da9645',
+                                'orange-dark': '#c17e30',
+                                purple: '#6b72af',
+                                black: '#1a1a1a',
+                                navy: '#111827' /* Para el nuevo footer */,
+                            },
+                        },
+                        fontFamily: {
+                            sans: ['Inter', 'sans-serif'],
+                        },
+                    },
+                },
+            };
+        </script>
+
+        <style>
+            body {
+                background-color: #f8fafc;
+                margin: 0;
+                overflow-x: hidden;
+                scroll-behavior: smooth;
+            }
+
+            /* Marca de agua global */
+            .watermark-bg {
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: 100vw;
+                height: 100vh;
+                background-image: url('https://drive.google.com/thumbnail?id=1h8yQqqUv_AmAzK9wH6NSdDz0oiDsflgH&sz=w1000');
+                background-repeat: no-repeat;
+                background-position: center;
+                background-size: 50%;
+                opacity: 0.05;
+                z-index: -1;
+                pointer-events: none;
+            }
+
+            /* Animaciones Generales */
+            @keyframes heartbeat {
+                0% {
+                    transform: scale(1);
+                }
+                15% {
+                    transform: scale(1.05);
+                }
+                30% {
+                    transform: scale(1);
+                }
+                45% {
+                    transform: scale(1.05);
+                }
+                60% {
+                    transform: scale(1);
+                }
+                100% {
+                    transform: scale(1);
+                }
+            }
+            .animate-heartbeat {
+                animation: heartbeat 2.5s infinite;
+            }
+
+            @keyframes fadeIn {
+                from {
+                    opacity: 0;
+                    transform: translateY(15px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+            .animate-fade-in {
+                animation: fadeIn 0.5s ease-out forwards;
+            }
+
+            @keyframes pulse-soft {
+                0%,
+                100% {
+                    transform: scale(1);
+                }
+                50% {
+                    transform: scale(1.02);
+                }
+            }
+            .animate-pulse-soft {
+                animation: pulse-soft 4s infinite ease-in-out;
+            }
+
+            /* Efectos On-Scroll */
+            .reveal {
+                opacity: 0;
+                transform: translateY(30px);
+                transition: all 0.8s ease-out;
+            }
+            .reveal.active {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+            /* Degradado de Bandera para Testimonios */
+            .card-testimonial {
+                position: relative;
+                background: white;
+                overflow: hidden;
+                transition:
+                    transform 0.3s ease,
+                    box-shadow 0.3s ease;
+            }
+            .card-testimonial:hover {
+                transform: translateY(-5px);
+                box-shadow:
+                    0 20px 25px -5px rgba(0, 0, 0, 0.1),
+                    0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            }
+            .card-testimonial::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                right: 0;
+                width: 180px;
+                height: 120px;
+                background-image: var(--flag-url);
+                background-size: cover;
+                background-position: center;
+                opacity: 0.25;
+                pointer-events: none;
+                z-index: 0;
+                mask-image: linear-gradient(225deg, black 15%, transparent 75%);
+                -webkit-mask-image: linear-gradient(
+                    225deg,
+                    black 15%,
+                    transparent 75%
+                );
+                transition: opacity 0.3s ease;
+            }
+            .card-testimonial:hover::before {
+                opacity: 0.4;
+            }
+            .testimonial-content {
+                position: relative;
+                z-index: 10;
+            }
+
+            /* Utilidades Glassmorphism Expandido */
+            .glass-full {
+                background: rgba(255, 255, 255, 0.65);
+                backdrop-filter: blur(20px);
+                -webkit-backdrop-filter: blur(20px);
+                border: 1px solid rgba(255, 255, 255, 0.6);
+                box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+            }
+
+            .glass-gradient {
+                background: linear-gradient(
+                    135deg,
+                    rgba(218, 150, 69, 0.55) 0%,
+                    rgba(218, 150, 69, 0.15) 100%
+                );
+                backdrop-filter: blur(12px);
+                -webkit-backdrop-filter: blur(12px);
+                border: 1px solid rgba(255, 255, 255, 0.3);
+                border-top: 1px solid rgba(255, 255, 255, 0.6);
+                border-left: 1px solid rgba(255, 255, 255, 0.6);
+                box-shadow: 0 25px 50px -12px rgba(218, 150, 69, 0.25);
+            }
+
+            .cursor-blink::after {
+                content: '|';
+                animation: blink 1s step-start infinite;
+            }
+            @keyframes blink {
+                50% {
+                    opacity: 0;
+                }
+            }
+
+            /* Scrollbar minimalista */
+            ::-webkit-scrollbar {
+                width: 8px;
+            }
+            ::-webkit-scrollbar-track {
+                background: #f1f5f9;
+            }
+            ::-webkit-scrollbar-thumb {
+                background: #cbd5e1;
+                border-radius: 4px;
+            }
+            ::-webkit-scrollbar-thumb:hover {
+                background: #da9645;
+            }
+
+            /* Course Image Gradient Overlay */
+            .course-img-overlay {
+                background: linear-gradient(
+                    to top,
+                    rgba(0, 0, 0, 0.8) 0%,
+                    rgba(0, 0, 0, 0) 100%
+                );
+            }
+
+            /* Estilos específicos para la sección STUDIO rediseñada */
+            .studio-cta {
+                transition: transform 0.15s ease;
+            }
+            .studio-cta:hover {
+                transform: translateY(-2px);
+            }
+        </style>
+    </head>
+    <body
+        class="relative flex min-h-screen flex-col font-sans text-slate-800 antialiased"
+    >
+        <!-- Imagen de fondo global -->
+        <div class="watermark-bg"></div>
+
+        <div class="fixed top-4 z-50 flex w-full justify-center px-4">
+            <header
+                class="flex w-full max-w-7xl items-center justify-between rounded-full border border-white/50 bg-white/90 px-6 py-3 shadow-[0_8px_30px_rgb(0,0,0,0.08)] backdrop-blur-md transition-all duration-300"
+            >
+                <!-- Logo -->
+                <a href="#" class="flex shrink-0 items-center gap-3">
+                    <img
+                        src="https://drive.google.com/thumbnail?id=1h8yQqqUv_AmAzK9wH6NSdDz0oiDsflgH&sz=w1000"
+                        alt="Logo Avanzia"
+                        class="h-10 object-contain md:h-12"
+                    />
+                </a>
+
+                <!-- Desktop Nav -->
+                <nav
+                    class="hidden items-center gap-8 text-sm font-bold text-slate-600 lg:flex"
+                >
+                    <a
+                        href="#inicio"
+                        class="transition-colors hover:text-avanzia-orange"
+                        >Inicio</a
+                    >
+                    <a
+                        href="https://portal.avanzia.org/"
+                        target="_blank"
+                        class="transition-colors hover:text-avanzia-orange"
+                        >Portal Educativo</a
+                    >
+                    <a
+                        href="#nosotros"
+                        class="transition-colors hover:text-avanzia-orange"
+                        >Quienes Somos</a
+                    >
+                    <a
+                        href="#cursos"
+                        class="transition-colors hover:text-avanzia-orange"
+                        >Cursos</a
+                    >
+                    <a
+                        href="#convenios"
+                        class="transition-colors hover:text-avanzia-orange"
+                        >Convenios</a
+                    >
+                    <a
+                        href="#validacion"
+                        class="transition-colors hover:text-avanzia-orange"
+                        >Validación</a
+                    >
+                </nav>
+
+                <!-- Desktop CTA -->
+                <a
+                    href="#registro"
+                    class="hidden animate-heartbeat rounded-full bg-avanzia-orange px-8 py-2.5 font-bold text-white shadow-lg shadow-avanzia-orange/30 transition-colors hover:scale-105 hover:bg-avanzia-orange-dark lg:inline-block"
+                >
+                    Regístrate
+                </a>
+
+                <!-- Mobile Menu Button -->
+                <button
+                    id="mobile-menu-btn"
+                    class="text-2xl text-avanzia-black transition-colors hover:text-avanzia-orange focus:outline-none lg:hidden"
+                >
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </header>
+        </div>
+
+        <!-- Mobile Dropdown Menu -->
+        <div
+            id="mobile-menu"
+            class="fixed inset-0 z-40 hidden flex-col items-center justify-center gap-8 bg-white/95 text-xl font-black text-slate-800 backdrop-blur-xl"
+        >
+            <button
+                id="mobile-close-btn"
+                class="absolute top-8 right-8 text-4xl text-slate-400 transition-colors hover:text-avanzia-orange"
+            >
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <a
+                href="#inicio"
+                class="mobile-link transition-colors hover:text-avanzia-orange"
+                >Inicio</a
+            >
+            <a
+                href="https://portal.avanzia.org/"
+                target="_blank"
+                class="mobile-link transition-colors hover:text-avanzia-orange"
+                >Portal Educativo</a
+            >
+            <a
+                href="#nosotros"
+                class="mobile-link transition-colors hover:text-avanzia-orange"
+                >Quienes Somos</a
+            >
+            <a
+                href="#cursos"
+                class="mobile-link transition-colors hover:text-avanzia-orange"
+                >Cursos</a
+            >
+            <a
+                href="#convenios"
+                class="mobile-link transition-colors hover:text-avanzia-orange"
+                >Convenios</a
+            >
+            <a
+                href="#validacion"
+                class="mobile-link transition-colors hover:text-avanzia-orange"
+                >Validación</a
+            >
+            <a
+                href="#registro"
+                class="mobile-link mt-4 animate-heartbeat rounded-full bg-avanzia-orange px-10 py-4 text-lg font-bold text-white shadow-xl"
+                >Regístrate ahora</a
+            >
+        </div>
+
+        <section
+            id="inicio"
+            class="relative flex min-h-[85vh] flex-col items-center justify-center overflow-hidden px-4 pt-32 pb-10 text-center lg:pt-40 lg:pb-12"
+        >
+            <!-- Video Background en Loop -->
+            <video
+                autoplay
+                loop
+                muted
+                playsinline
+                class="pointer-events-none absolute inset-0 -z-20 h-full w-full object-cover"
+            >
+                <source
+                    src="https://avanzia.org/wp-content/uploads/2026/10/VideoAvanziaDocentes.webm"
+                    type="video/webm"
+                />
+            </video>
+
+            <!-- Overlay Oscuro para garantizar contraste -->
+            <div
+                class="absolute inset-0 -z-10 bg-slate-900/40 mix-blend-multiply"
+            ></div>
+
+            <!-- Contenedor Glassmorphism Ampliado y Degradado -->
+            <div
+                class="glass-gradient reveal relative z-10 mx-auto w-full max-w-[95%] rounded-[3rem] p-8 md:p-14 lg:p-20 xl:max-w-7xl"
+            >
+                <h1
+                    class="mb-8 min-h-[100px] text-4xl leading-[1.2] font-black tracking-tighter text-white md:min-h-[80px] md:text-5xl lg:text-6xl"
+                    id="typewriter-text"
+                >
+                    <!-- Generado por JS -->
+                </h1>
+                <p
+                    class="mx-auto mb-12 max-w-4xl text-base leading-relaxed font-medium text-white/90 md:text-xl"
+                >
+                    La primera plataforma educativa que integra un asistente de
+                    IA capaz de estructurar sesiones, analizar documentos y
+                    generar rúbricas en segundos, respetando normativas
+                    oficiales y liberando tu tiempo.
+                </p>
+                <div
+                    class="flex flex-col items-center justify-center gap-6 sm:flex-row"
+                >
+                    <a
+                        href="https://studio.avanzia.org/"
+                        target="_blank"
+                        class="flex w-full items-center justify-center gap-3 rounded-full bg-white px-12 py-4 text-lg font-semibold text-avanzia-black shadow-xl transition-all hover:-translate-y-1 hover:bg-slate-100 sm:w-auto"
+                    >
+                        CREAR CON IA
+                        <i class="fa-solid fa-arrow-right text-sm"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <div
+            class="reveal w-full bg-gradient-to-r from-avanzia-purple to-[#4a507d] py-5 text-white shadow-inner"
+        >
+            <div
+                class="mx-auto flex max-w-7xl items-center justify-center gap-6 px-4 text-center"
+            >
+                <div class="flex hidden -space-x-4 opacity-95 sm:flex">
+                    <img
+                        class="h-10 w-10 rounded-full border-2 border-[#4a507d] transition-transform hover:-translate-y-1"
+                        src="https://i.pravatar.cc/100?img=1"
+                        alt="Docente"
+                    />
+                    <img
+                        class="h-10 w-10 rounded-full border-2 border-[#4a507d] transition-transform hover:-translate-y-1"
+                        src="https://i.pravatar.cc/100?img=5"
+                        alt="Docente"
+                    />
+                    <img
+                        class="h-10 w-10 rounded-full border-2 border-[#4a507d] transition-transform hover:-translate-y-1"
+                        src="https://i.pravatar.cc/100?img=9"
+                        alt="Docente"
+                    />
+                    <img
+                        class="h-10 w-10 rounded-full border-2 border-[#4a507d] transition-transform hover:-translate-y-1"
+                        src="https://i.pravatar.cc/100?img=12"
+                        alt="Docente"
+                    />
+                </div>
+                <p class="font-bold tracking-wide md:text-xl">
+                    Respaldado por más de
+                    <span
+                        class="animate-pulse text-2xl font-black text-amber-300"
+                        >2000 docentes</span
+                    >
+                    a nivel internacional.
+                </p>
+            </div>
+        </div>
+
+        <section
+            id="nosotros"
+            class="relative overflow-hidden bg-transparent px-4 py-24 font-['Figtree',sans-serif] text-[#1F2A44]"
+        >
+            <div class="reveal mx-auto flex max-w-[1160px] flex-col gap-16">
+                <!-- Top Part -->
+                <div class="flex flex-wrap items-center gap-14">
+                    <!-- Text side -->
+                    <div
+                        class="flex min-w-[300px] flex-1 flex-col items-start gap-6"
+                    >
+                        <p
+                            class="m-0 font-['Caveat',cursive] text-[28px] leading-none font-bold text-[#B3640A]"
+                        >
+                            Para ti, docente de Latinoamérica
+                        </p>
+                        <h2
+                            class="m-0 font-['Bricolage_Grotesque',sans-serif] text-[clamp(38px,5.2vw,64px)] leading-[1.04] font-extrabold tracking-tight text-[#1F2A44]"
+                        >
+                            Menos papeleo.<br />Más tiempo para
+                            <span
+                                style="
+                                    background: linear-gradient(
+                                        transparent 60%,
+                                        #f3ce86 60%,
+                                        #f3ce86 90%,
+                                        transparent 90%
+                                    );
+                                    padding: 0 6px;
+                                    margin: 0 -6px;
+                                "
+                                >tus estudiantes</span
+                            >.
+                        </h2>
+                        <p
+                            class="m-0 max-w-[500px] text-[19px] leading-[1.65] text-[#3E382E]"
+                        >
+                            <strong class="text-[#1F2A44]"
+                                >Avanzia STUDIO</strong
+                            >
+                            es tu asistente 24/7, pensado para la realidad de
+                            las aulas en América Latina. Te ayudamos a dejar
+                            atrás el trabajo mecánico y la burocracia
+                            documental, para que recuperes tu tiempo y lo
+                            dediques a lo que te llevó a enseñar.
+                        </p>
+                        <a
+                            href="https://studio.avanzia.org/"
+                            target="_blank"
+                            class="studio-cta box-border inline-flex min-h-[52px] items-center gap-2.5 rounded-full bg-[#1F2A44] px-7 py-3.5 text-[17px] font-semibold text-[#FFFDF8] shadow-[0_10px_22px_rgba(31,42,68,.22)]"
+                        >
+                            Crear con IA
+                            <svg
+                                aria-hidden="true"
+                                width="18"
+                                height="18"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="2.2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            >
+                                <path d="M5 12h14M13 6l6 6-6 6"></path>
+                            </svg>
+                        </a>
+                        <p class="m-0 text-[15px] leading-[1.5] text-[#6B6256]">
+                            Para inicial, primaria, secundaria y superior.
+                        </p>
+                    </div>
+
+                    <!-- Graphics side -->
+                    <div
+                        class="relative max-w-[620px] min-w-[300px] flex-1 px-2.5 pt-[70px] pb-12"
+                    >
+                        <div
+                            aria-hidden="true"
+                            style="
+                                position: absolute;
+                                left: 2%;
+                                right: -2%;
+                                top: 40px;
+                                bottom: 20px;
+                                background: #f7ddae;
+                                border-radius: 52% 48% 44% 56% / 46% 54% 46% 54%;
+                                z-index: 0;
+                            "
+                        ></div>
+
+                        <div
+                            style="
+                                position: absolute;
+                                top: 6px;
+                                right: -8px;
+                                z-index: 4;
+                                box-sizing: border-box;
+                                width: 124px;
+                                padding: 14px 14px 16px;
+                                background: #ffe08f;
+                                box-shadow: 0 10px 18px rgba(90, 56, 10, 0.2);
+                                transform: rotate(5deg);
+                                font-family: 'Caveat', cursive;
+                                font-size: 22px;
+                                font-weight: 700;
+                                line-height: 1.1;
+                                color: #1f2a44;
+                            "
+                        >
+                            Tú pones la vocación.
+                        </div>
+
+                        <div
+                            style="
+                                position: relative;
+                                z-index: 1;
+                                margin-left: 4px;
+                                background-color: #fffdf8;
+                                background-image: repeating-linear-gradient(
+                                    to bottom,
+                                    transparent 0,
+                                    transparent 31px,
+                                    #e9dfcb 31px,
+                                    #e9dfcb 32px
+                                );
+                                background-position: 0 44px;
+                                border-radius: 8px 16px 16px 8px;
+                                box-shadow:
+                                    0 22px 44px rgba(90, 56, 10, 0.2),
+                                    0 2px 0 rgba(90, 56, 10, 0.06);
+                                padding: 44px 28px 28px 60px;
+                                transform: rotate(-1.6deg);
+                            "
+                        >
+                            <div
+                                aria-hidden="true"
+                                style="
+                                    position: absolute;
+                                    top: -13px;
+                                    left: 50%;
+                                    margin-left: -45px;
+                                    width: 90px;
+                                    height: 26px;
+                                    background: rgba(243, 206, 134, 0.78);
+                                    transform: rotate(-3deg);
+                                    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+                                "
+                            ></div>
+                            <div
+                                aria-hidden="true"
+                                style="
+                                    position: absolute;
+                                    top: 0;
+                                    bottom: 0;
+                                    left: 46px;
+                                    width: 2px;
+                                    background: #edb1a8;
+                                "
+                            ></div>
+                            <div
+                                aria-hidden="true"
+                                style="
+                                    position: absolute;
+                                    left: 14px;
+                                    top: 28px;
+                                    display: flex;
+                                    flex-direction: column;
+                                    gap: 44px;
+                                "
+                            >
+                                <div
+                                    style="
+                                        width: 14px;
+                                        height: 14px;
+                                        border-radius: 50%;
+                                        background: #f1e7d3;
+                                        box-shadow: inset 0 1px 3px
+                                            rgba(90, 56, 10, 0.35);
+                                    "
+                                ></div>
+                                <div
+                                    style="
+                                        width: 14px;
+                                        height: 14px;
+                                        border-radius: 50%;
+                                        background: #f1e7d3;
+                                        box-shadow: inset 0 1px 3px
+                                            rgba(90, 56, 10, 0.35);
+                                    "
+                                ></div>
+                                <div
+                                    style="
+                                        width: 14px;
+                                        height: 14px;
+                                        border-radius: 50%;
+                                        background: #f1e7d3;
+                                        box-shadow: inset 0 1px 3px
+                                            rgba(90, 56, 10, 0.35);
+                                    "
+                                ></div>
+                                <div
+                                    style="
+                                        width: 14px;
+                                        height: 14px;
+                                        border-radius: 50%;
+                                        background: #f1e7d3;
+                                        box-shadow: inset 0 1px 3px
+                                            rgba(90, 56, 10, 0.35);
+                                    "
+                                ></div>
+                                <div
+                                    style="
+                                        width: 14px;
+                                        height: 14px;
+                                        border-radius: 50%;
+                                        background: #f1e7d3;
+                                        box-shadow: inset 0 1px 3px
+                                            rgba(90, 56, 10, 0.35);
+                                    "
+                                ></div>
+                                <div
+                                    style="
+                                        width: 14px;
+                                        height: 14px;
+                                        border-radius: 50%;
+                                        background: #f1e7d3;
+                                        box-shadow: inset 0 1px 3px
+                                            rgba(90, 56, 10, 0.35);
+                                    "
+                                ></div>
+                            </div>
+
+                            <p
+                                style="
+                                    margin: 0;
+                                    font-size: 12px;
+                                    font-weight: 700;
+                                    letter-spacing: 0.08em;
+                                    text-transform: uppercase;
+                                    line-height: 32px;
+                                    color: #6b6256;
+                                "
+                            >
+                                Sesión de aprendizaje
+                            </p>
+                            <p
+                                style="
+                                    margin: 0;
+                                    font-family: 'Caveat', cursive;
+                                    font-size: 32px;
+                                    font-weight: 700;
+                                    line-height: 32px;
+                                    color: #1f2a44;
+                                "
+                            >
+                                Las partes de una planta
+                            </p>
+                            <p
+                                style="
+                                    margin: 0;
+                                    font-size: 15px;
+                                    line-height: 32px;
+                                    color: #6b6256;
+                                "
+                            >
+                                Ciencia y Tecnología · 3.er grado de primaria
+                            </p>
+                            <p
+                                style="
+                                    margin: 0;
+                                    font-size: 15px;
+                                    line-height: 32px;
+                                    color: #2e2a22;
+                                "
+                            >
+                                <strong>Propósito:</strong> reconocer y nombrar
+                                las partes de una planta.
+                            </p>
+
+                            <div style="display: flex; flex-direction: column">
+                                <div
+                                    style="
+                                        display: flex;
+                                        gap: 10px;
+                                        align-items: flex-start;
+                                        font-size: 15px;
+                                        line-height: 32px;
+                                        color: #2e2a22;
+                                    "
+                                >
+                                    <svg
+                                        aria-hidden="true"
+                                        width="22"
+                                        height="22"
+                                        viewBox="0 0 22 22"
+                                        style="flex: none; margin-top: 5px"
+                                    >
+                                        <circle
+                                            cx="11"
+                                            cy="11"
+                                            r="8.5"
+                                            fill="none"
+                                            stroke="#B3640A"
+                                            stroke-width="1.6"
+                                        ></circle>
+                                        <path
+                                            d="M6.8 11.4l3 3 5.6-6.6"
+                                            fill="none"
+                                            stroke="#B3640A"
+                                            stroke-width="2"
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                        ></path>
+                                    </svg>
+                                    <span
+                                        ><strong>Inicio ·</strong> ¿Qué hay
+                                        dentro de una semilla?</span
+                                    >
+                                </div>
+                                <div
+                                    style="
+                                        display: flex;
+                                        gap: 10px;
+                                        align-items: flex-start;
+                                        font-size: 15px;
+                                        line-height: 32px;
+                                        color: #2e2a22;
+                                    "
+                                >
+                                    <svg
+                                        aria-hidden="true"
+                                        width="22"
+                                        height="22"
+                                        viewBox="0 0 22 22"
+                                        style="flex: none; margin-top: 5px"
+                                    >
+                                        <circle
+                                            cx="11"
+                                            cy="11"
+                                            r="8.5"
+                                            fill="none"
+                                            stroke="#B3640A"
+                                            stroke-width="1.6"
+                                        ></circle>
+                                        <path
+                                            d="M6.8 11.4l3 3 5.6-6.6"
+                                            fill="none"
+                                            stroke="#B3640A"
+                                            stroke-width="2"
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                        ></path>
+                                    </svg>
+                                    <span
+                                        ><strong>Desarrollo ·</strong>
+                                        Observamos plantas del patio</span
+                                    >
+                                </div>
+                                <div
+                                    style="
+                                        display: flex;
+                                        gap: 10px;
+                                        align-items: flex-start;
+                                        font-size: 15px;
+                                        line-height: 32px;
+                                        color: #2e2a22;
+                                    "
+                                >
+                                    <svg
+                                        aria-hidden="true"
+                                        width="22"
+                                        height="22"
+                                        viewBox="0 0 22 22"
+                                        style="flex: none; margin-top: 5px"
+                                    >
+                                        <circle
+                                            cx="11"
+                                            cy="11"
+                                            r="8.5"
+                                            fill="none"
+                                            stroke="#B3640A"
+                                            stroke-width="1.6"
+                                        ></circle>
+                                        <path
+                                            d="M6.8 11.4l3 3 5.6-6.6"
+                                            fill="none"
+                                            stroke="#B3640A"
+                                            stroke-width="2"
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                        ></path>
+                                    </svg>
+                                    <span
+                                        ><strong>Cierre ·</strong> Dibujamos y
+                                        lo explicamos</span
+                                    >
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Tags -->
+                        <div
+                            style="
+                                position: relative;
+                                z-index: 2;
+                                display: flex;
+                                flex-wrap: wrap;
+                                gap: 16px 20px;
+                                align-items: flex-end;
+                                justify-content: space-between;
+                                margin-top: -26px;
+                                padding: 0 4px;
+                            "
+                        >
+                            <div
+                                style="
+                                    display: flex;
+                                    flex-direction: column;
+                                    gap: 10px;
+                                    align-items: flex-start;
+                                    padding-bottom: 20px;
+                                "
+                            >
+                                <div
+                                    style="
+                                        display: inline-flex;
+                                        align-items: center;
+                                        gap: 10px;
+                                        background: #ffffff;
+                                        border: 1px solid #e6d9bf;
+                                        border-radius: 14px;
+                                        padding: 10px 16px 10px 10px;
+                                        box-shadow: 0 10px 22px
+                                            rgba(90, 56, 10, 0.14);
+                                        transform: rotate(-2.5deg);
+                                    "
+                                >
+                                    <span
+                                        style="
+                                            display: flex;
+                                            align-items: center;
+                                            justify-content: center;
+                                            width: 34px;
+                                            height: 34px;
+                                            border-radius: 10px;
+                                            background: #f7ddae;
+                                        "
+                                    >
+                                        <svg
+                                            aria-hidden="true"
+                                            width="20"
+                                            height="20"
+                                            viewBox="0 0 24 24"
+                                            fill="none"
+                                            stroke="#1F2A44"
+                                            stroke-width="1.8"
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                        >
+                                            <path
+                                                d="M7 3.5h7l4 4V20a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5V4a.5.5 0 0 1 .5-.5z"
+                                            ></path>
+                                            <path
+                                                d="M14 3.5V8h4M9 13h6M9 16.5h4"
+                                            ></path>
+                                        </svg>
+                                    </span>
+                                    <span
+                                        style="
+                                            font-size: 14px;
+                                            font-weight: 600;
+                                            color: #1f2a44;
+                                        "
+                                        >unidad_2_ciencias.pdf</span
+                                    >
+                                </div>
+                                <p
+                                    style="
+                                        margin: 0 0 0 8px;
+                                        max-width: 200px;
+                                        font-family: 'Caveat', cursive;
+                                        font-size: 23px;
+                                        font-weight: 700;
+                                        line-height: 1.05;
+                                        color: #b3640a;
+                                        transform: rotate(-2deg);
+                                    "
+                                >
+                                    Avanzia lee tu propio material
+                                </p>
+                            </div>
+
+                            <div
+                                style="
+                                    flex: 1 1 270px;
+                                    max-width: 320px;
+                                    box-sizing: border-box;
+                                    background: #ffffff;
+                                    border-radius: 14px;
+                                    padding: 18px 20px 20px;
+                                    box-shadow: 0 18px 36px
+                                        rgba(90, 56, 10, 0.18);
+                                    transform: rotate(1.8deg);
+                                "
+                            >
+                                <p
+                                    style="
+                                        margin: 0 0 12px;
+                                        font-family:
+                                            'Bricolage Grotesque', sans-serif;
+                                        font-size: 16px;
+                                        font-weight: 600;
+                                        line-height: 1.25;
+                                        color: #1f2a44;
+                                    "
+                                >
+                                    Rúbrica: explica las partes de la planta
+                                </p>
+                                <div
+                                    style="
+                                        display: flex;
+                                        flex-direction: column;
+                                        gap: 10px;
+                                    "
+                                >
+                                    <div
+                                        style="
+                                            display: flex;
+                                            gap: 10px;
+                                            align-items: flex-start;
+                                        "
+                                    >
+                                        <span
+                                            style="
+                                                flex: none;
+                                                min-width: 58px;
+                                                box-sizing: border-box;
+                                                padding: 3px 8px;
+                                                border-radius: 999px;
+                                                background: #d99a3a;
+                                                text-align: center;
+                                                font-size: 12px;
+                                                font-weight: 700;
+                                                line-height: 1.3;
+                                                color: #1f2a44;
+                                            "
+                                            >18–20</span
+                                        >
+                                        <span
+                                            style="
+                                                font-size: 14px;
+                                                line-height: 1.4;
+                                                color: #4a4338;
+                                            "
+                                            >Explica cada parte y su función con
+                                            ejemplos propios.</span
+                                        >
+                                    </div>
+                                    <div
+                                        style="
+                                            display: flex;
+                                            gap: 10px;
+                                            align-items: flex-start;
+                                        "
+                                    >
+                                        <span
+                                            style="
+                                                flex: none;
+                                                min-width: 58px;
+                                                box-sizing: border-box;
+                                                padding: 3px 8px;
+                                                border-radius: 999px;
+                                                background: #ebb866;
+                                                text-align: center;
+                                                font-size: 12px;
+                                                font-weight: 700;
+                                                line-height: 1.3;
+                                                color: #1f2a44;
+                                            "
+                                            >14–17</span
+                                        >
+                                        <span
+                                            style="
+                                                font-size: 14px;
+                                                line-height: 1.4;
+                                                color: #4a4338;
+                                            "
+                                            >Nombra las partes y explica casi
+                                            todas sus funciones.</span
+                                        >
+                                    </div>
+                                    <div
+                                        style="
+                                            display: flex;
+                                            gap: 10px;
+                                            align-items: flex-start;
+                                        "
+                                    >
+                                        <span
+                                            style="
+                                                flex: none;
+                                                min-width: 58px;
+                                                box-sizing: border-box;
+                                                padding: 3px 8px;
+                                                border-radius: 999px;
+                                                background: #f5d9a6;
+                                                text-align: center;
+                                                font-size: 12px;
+                                                font-weight: 700;
+                                                line-height: 1.3;
+                                                color: #1f2a44;
+                                            "
+                                            >11–13</span
+                                        >
+                                        <span
+                                            style="
+                                                font-size: 14px;
+                                                line-height: 1.4;
+                                                color: #4a4338;
+                                            "
+                                            >Reconoce algunas partes con
+                                            apoyo.</span
+                                        >
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Pencil Icon -->
+                        <svg
+                            aria-hidden="true"
+                            width="176"
+                            height="22"
+                            viewBox="0 0 176 22"
+                            style="
+                                position: absolute;
+                                right: 30px;
+                                bottom: 6px;
+                                z-index: 3;
+                                transform: rotate(-7deg);
+                                filter: drop-shadow(
+                                    0 4px 4px rgba(90, 56, 10, 0.22)
+                                );
+                            "
+                        >
+                            <rect
+                                x="0"
+                                y="3"
+                                width="16"
+                                height="16"
+                                rx="4"
+                                fill="#E88F86"
+                            ></rect>
+                            <rect
+                                x="16"
+                                y="3"
+                                width="12"
+                                height="16"
+                                fill="#B8BEC9"
+                            ></rect>
+                            <rect
+                                x="28"
+                                y="3"
+                                width="102"
+                                height="16"
+                                fill="#E9B04A"
+                            ></rect>
+                            <rect
+                                x="28"
+                                y="10"
+                                width="102"
+                                height="2"
+                                fill="#D79A32"
+                            ></rect>
+                            <polygon
+                                points="130,3 160,8.5 160,13.5 130,19"
+                                fill="#F3DDB5"
+                            ></polygon>
+                            <polygon
+                                points="154,9 176,11 154,13"
+                                fill="#2B2A28"
+                            ></polygon>
+                        </svg>
+                    </div>
+                </div>
+
+                <!-- Features Bottom -->
+                <div
+                    style="
+                        border-top: 1.5px dashed #d8c7a3;
+                        padding-top: 44px;
+                        display: flex;
+                        flex-wrap: wrap;
+                        gap: 40px 48px;
+                    "
+                >
+                    <!-- Feature 1 -->
+                    <div
+                        style="
+                            flex: 1 1 280px;
+                            min-width: 0;
+                            display: flex;
+                            flex-direction: column;
+                            gap: 14px;
+                        "
+                    >
+                        <div
+                            style="
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                width: 56px;
+                                height: 56px;
+                                background: #f7ddae;
+                                border-radius: 58% 42% 52% 48% / 50% 55% 45% 50%;
+                            "
+                        >
+                            <svg
+                                aria-hidden="true"
+                                width="26"
+                                height="26"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="#1F2A44"
+                                stroke-width="1.8"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            >
+                                <path
+                                    d="M12 6.5C10.3 5.2 8 4.8 4.5 5v12c3.5-.2 5.8.2 7.5 1.5 1.7-1.3 4-1.7 7.5-1.5V5c-3.5-.2-5.8.2-7.5 1.5z"
+                                ></path>
+                                <path d="M12 6.5v12"></path>
+                            </svg>
+                        </div>
+                        <h3
+                            style="
+                                margin: 0;
+                                font-family: 'Bricolage Grotesque', sans-serif;
+                                font-size: 23px;
+                                font-weight: 600;
+                                line-height: 1.2;
+                                color: #1f2a44;
+                            "
+                        >
+                            Tu sesión, lista para el lunes
+                        </h3>
+                        <p
+                            style="
+                                margin: 0;
+                                font-size: 16.5px;
+                                line-height: 1.65;
+                                color: #4a4338;
+                            "
+                        >
+                            Genera unidades didácticas y sesiones de aprendizaje
+                            completas, adaptadas a inicial, primaria, secundaria
+                            o superior.
+                        </p>
+                    </div>
+
+                    <!-- Feature 2 -->
+                    <div
+                        style="
+                            flex: 1 1 280px;
+                            min-width: 0;
+                            display: flex;
+                            flex-direction: column;
+                            gap: 14px;
+                        "
+                    >
+                        <div
+                            style="
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                width: 56px;
+                                height: 56px;
+                                background: #f7ddae;
+                                border-radius: 46% 54% 44% 56% / 55% 45% 55% 45%;
+                            "
+                        >
+                            <svg
+                                aria-hidden="true"
+                                width="26"
+                                height="26"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="#1F2A44"
+                                stroke-width="1.8"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            >
+                                <rect
+                                    x="4"
+                                    y="4"
+                                    width="16"
+                                    height="16"
+                                    rx="3"
+                                ></rect>
+                                <path
+                                    d="M8 9l1.5 1.5L12 8M8 15l1.5 1.5L12 14M14.5 9.5H17M14.5 15.5H17"
+                                ></path>
+                            </svg>
+                        </div>
+                        <h3
+                            style="
+                                margin: 0;
+                                font-family: 'Bricolage Grotesque', sans-serif;
+                                font-size: 23px;
+                                font-weight: 600;
+                                line-height: 1.2;
+                                color: #1f2a44;
+                            "
+                        >
+                            Rúbricas claras, sin empezar de cero
+                        </h3>
+                        <p
+                            style="
+                                margin: 0;
+                                font-size: 16.5px;
+                                line-height: 1.65;
+                                color: #4a4338;
+                            "
+                        >
+                            Diseña rúbricas cualitativas o escalas vigesimales
+                            con descriptores claros, precisos y alineados a tus
+                            objetivos de evaluación.
+                        </p>
+                    </div>
+
+                    <!-- Feature 3 -->
+                    <div
+                        style="
+                            flex: 1 1 280px;
+                            min-width: 0;
+                            display: flex;
+                            flex-direction: column;
+                            gap: 14px;
+                        "
+                    >
+                        <div
+                            style="
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                width: 56px;
+                                height: 56px;
+                                background: #f7ddae;
+                                border-radius: 52% 48% 58% 42% / 44% 56% 44% 56%;
+                            "
+                        >
+                            <svg
+                                aria-hidden="true"
+                                width="26"
+                                height="26"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="#1F2A44"
+                                stroke-width="1.8"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            >
+                                <path
+                                    d="M7 3.5h7l4 4V20a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5V4a.5.5 0 0 1 .5-.5z"
+                                ></path>
+                                <path d="M14 3.5V8h4M9 13h6M9 16.5h4"></path>
+                            </svg>
+                        </div>
+                        <h3
+                            style="
+                                margin: 0;
+                                font-family: 'Bricolage Grotesque', sans-serif;
+                                font-size: 23px;
+                                font-weight: 600;
+                                line-height: 1.2;
+                                color: #1f2a44;
+                            "
+                        >
+                            Tus materiales, tu criterio
+                        </h3>
+                        <p
+                            style="
+                                margin: 0;
+                                font-size: 16.5px;
+                                line-height: 1.65;
+                                color: #4a4338;
+                            "
+                        >
+                            Sube tus propios PDFs o Words. La IA leerá el
+                            contexto para generar exámenes y proyectos basados
+                            estrictamente en tu material.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section
+            id="cursos"
+            class="relative overflow-hidden border-y border-slate-700/50 bg-slate-900/85 px-4 py-24 backdrop-blur-xl"
+        >
+            <!-- Decoración de fondo dinámica -->
+            <div
+                class="absolute inset-0 -z-10 opacity-10"
+                style="
+                    background-image: radial-gradient(
+                        #da9645 1.5px,
+                        transparent 1.5px
+                    );
+                    background-size: 40px 40px;
+                "
+            ></div>
+
+            <div class="reveal mx-auto max-w-7xl">
+                <div
+                    class="mb-12 flex flex-col items-end justify-between gap-6 md:flex-row"
+                >
+                    <div class="text-left">
+                        <h2
+                            class="mb-4 text-4xl font-black tracking-tight text-white md:text-5xl"
+                        >
+                            Catálogo de Especialización
+                        </h2>
+                        <p class="max-w-2xl text-xl text-slate-300">
+                            Capacítate con expertos y domina herramientas
+                            tecnológicas que transformarán tu perfil
+                            profesional.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Organizador por Categorías -->
+                <div
+                    class="mb-10 flex flex-wrap gap-3 border-b border-slate-700 pb-6"
+                    id="course-categories"
+                >
+                    <!-- Renderizado vía JS -->
+                </div>
+
+                <!-- Grid de Cursos (6 a la vez) -->
+                <div
+                    class="mb-12 grid min-h-[400px] gap-8 sm:grid-cols-2 lg:grid-cols-3"
+                    id="courses-grid"
+                >
+                    <!-- Renderizado vía JS -->
+                </div>
+
+                <!-- Controles de Paginación -->
+                <div
+                    class="flex items-center justify-center gap-4"
+                    id="courses-pagination"
+                    style="display: none"
+                >
+                    <button
+                        id="btn-prev-courses"
+                        class="flex h-12 w-12 items-center justify-center rounded-full bg-white/10 text-white transition-all hover:bg-white/20 disabled:opacity-30"
+                    >
+                        <i class="fa-solid fa-chevron-left"></i>
+                    </button>
+                    <span
+                        id="page-indicator"
+                        class="text-lg font-bold text-white"
+                        >1 / 1</span
+                    >
+                    <button
+                        id="btn-next-courses"
+                        class="flex h-12 w-12 items-center justify-center rounded-full bg-white/10 text-white transition-all hover:bg-white/20 disabled:opacity-30"
+                    >
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <section
+            class="reveal relative bg-gradient-to-br from-avanzia-purple/10 to-transparent px-4 py-24"
+        >
+            <div class="mx-auto max-w-5xl text-center">
+                <div
+                    class="mb-6 inline-block rounded-full bg-avanzia-purple px-4 py-1.5 text-xs font-black tracking-widest text-white uppercase shadow-md transition-transform hover:scale-105"
+                >
+                    Avanzia Flex
+                </div>
+                <h2
+                    class="mb-8 text-4xl font-black tracking-tighter text-slate-900 md:text-6xl"
+                >
+                    Educación continua asincrónica.
+                </h2>
+                <p
+                    class="mx-auto max-w-3xl text-xl leading-relaxed text-slate-600"
+                >
+                    Estudia a tu propio ritmo con una lectura amigable y formal.
+                    Obtén acceso ilimitado a grabaciones de alta calidad,
+                    materiales descargables y evaluaciones automatizadas para
+                    certificar tus conocimientos sin depender de horarios fijos.
+                </p>
+            </div>
+        </section>
+
+        <section
+            id="comentarios"
+            class="relative border-y border-slate-100 bg-white px-4 py-24"
+        >
+            <div class="reveal mx-auto max-w-7xl">
+                <!-- Cabecera y Estadísticas -->
+                <div
+                    class="mb-16 flex flex-col items-center justify-between gap-10 rounded-[2.5rem] border border-slate-100 bg-slate-50 p-8 shadow-sm md:p-12 lg:flex-row"
+                >
+                    <div class="text-left lg:w-1/2">
+                        <h2
+                            class="mb-4 text-4xl font-black tracking-tight text-slate-900 md:text-5xl"
+                        >
+                            Lo que opinan de nuestros cursos.
+                        </h2>
+                        <p class="text-xl leading-relaxed text-slate-500">
+                            Únete a la red global de educadores que están
+                            liderando la transformación digital en sus aulas.
+                        </p>
+                    </div>
+
+                    <div
+                        class="flex w-full flex-wrap justify-center gap-4 sm:flex-nowrap sm:gap-6 lg:w-1/2 lg:justify-end"
+                    >
+                        <div
+                            class="max-w-[180px] flex-1 rounded-3xl border border-slate-50 bg-white p-6 text-center shadow-md transition-transform hover:-translate-y-1"
+                        >
+                            <div
+                                class="text-4xl font-black text-avanzia-orange"
+                                id="counter-teachers"
+                            >
+                                2,000
+                            </div>
+                            <div
+                                class="mt-2 text-xs font-bold tracking-widest text-slate-400 uppercase"
+                            >
+                                Docentes Capacitados
+                            </div>
+                        </div>
+                        <div
+                            class="max-w-[180px] flex-1 rounded-3xl border border-slate-50 bg-white p-6 text-center shadow-md transition-transform hover:-translate-y-1"
+                        >
+                            <div
+                                class="text-4xl font-black text-avanzia-purple"
+                                id="counter-reviews"
+                            >
+                                1,248
+                            </div>
+                            <div
+                                class="mt-2 text-xs font-bold tracking-widest text-slate-400 uppercase"
+                            >
+                                Total de Reseñas
+                            </div>
+                        </div>
+                        <div
+                            class="max-w-[180px] flex-1 rounded-3xl border border-slate-50 bg-white p-6 text-center shadow-md transition-transform hover:-translate-y-1"
+                        >
+                            <div
+                                class="flex items-center justify-center gap-2 text-4xl font-black text-amber-400"
+                            >
+                                4.89 <i class="fa-solid fa-star text-2xl"></i>
+                            </div>
+                            <div
+                                class="mt-2 text-xs font-bold tracking-widest text-slate-400 uppercase"
+                            >
+                                Calificación Prom.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Grid de Tarjetas (Rotación Dinámica) -->
+                <div
+                    id="testimonials-grid"
+                    class="mb-16 grid min-h-[300px] gap-8 md:grid-cols-2 lg:grid-cols-3"
+                >
+                    <!-- Tarjetas Inyectadas por JS -->
+                </div>
+
+                <!-- Controles de Testimonios -->
+                <div
+                    class="flex flex-col items-center justify-center gap-6 sm:flex-row"
+                >
+                    <button
+                        onclick="TestimonialSystem.openModal()"
+                        class="flex items-center gap-3 rounded-2xl border-[3px] border-avanzia-orange bg-white px-10 py-4 text-lg font-black text-avanzia-orange shadow-lg transition-all hover:-translate-y-1 hover:bg-avanzia-orange hover:text-white hover:shadow-xl"
+                    >
+                        <i class="fa-solid fa-pen-to-square"></i> Añadir
+                        testimonio
+                    </button>
+                    <a
+                        href="https://avanzia.org/testimonios"
+                        target="_blank"
+                        class="flex items-center gap-3 rounded-2xl border border-slate-200 bg-slate-100 px-10 py-4 text-lg font-bold text-slate-700 transition-all hover:bg-slate-200"
+                    >
+                        <i class="fa-solid fa-external-link-alt"></i> Mostrar
+                        todos
+                    </a>
+                </div>
+
+                <!-- Indicador visual de rotación (Barra de progreso) -->
+                <div
+                    class="mx-auto mt-10 h-1.5 w-full max-w-md overflow-hidden rounded-full bg-slate-100"
+                    id="testimonial-progress-container"
+                >
+                    <div
+                        class="h-full w-0 rounded-full bg-avanzia-orange transition-all duration-[10000ms] ease-linear"
+                        id="testimonial-progress-bar"
+                    ></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ALIANZAS ESTRATÉGICAS (SECCIÓN NUEVA) -->
+        <section
+            class="relative z-10 flex justify-center border-b border-slate-100 bg-white px-4 py-10"
+        >
+            <div
+                class="flex w-full max-w-5xl flex-col items-center justify-between gap-6 rounded-full border border-slate-100 bg-slate-50/50 px-8 py-4 md:flex-row"
+            >
+                <div class="flex items-center gap-4 text-slate-700">
+                    <div
+                        class="flex h-12 w-12 items-center justify-center rounded-full bg-avanzia-purple/10 text-xl text-avanzia-purple"
+                    >
+                        <i class="fa-regular fa-handshake"></i>
+                    </div>
+                    <div>
+                        <h4 class="text-base font-semibold">
+                            ¿Representas a una institución educativa?
+                        </h4>
+                        <p class="text-xs text-slate-500">
+                            Conversemos sobre cómo potenciar a tu plana docente.
+                        </p>
+                    </div>
+                </div>
+                <a
+                    href="#contacto"
+                    class="flex items-center gap-2 rounded-full border border-slate-200 bg-white px-8 py-3 text-sm font-medium text-slate-700 shadow-sm transition-all hover:border-avanzia-purple hover:text-avanzia-purple"
+                >
+                    Establecer Alianza Estratégica
+                </a>
+            </div>
+        </section>
+
+        <!-- PRE-FOOTER INSPIRADO EN LA IMAGEN -->
+        <section
+            id="convenios"
+            class="reveal relative overflow-hidden border-b border-white/5 bg-[#0f172a] pt-24 pb-20 text-white"
+        >
+            <div
+                class="pointer-events-none absolute top-0 right-0 h-96 w-96 rounded-full bg-avanzia-purple/10 blur-[120px]"
+            ></div>
+            <div
+                class="relative z-10 mx-auto grid max-w-7xl grid-cols-1 gap-12 px-6 lg:grid-cols-12 lg:gap-16"
+            >
+                <!-- Columna 1: Info Institucional -->
+                <div class="flex flex-col gap-6 lg:col-span-4">
+                    <div class="mb-2 flex items-center gap-3">
+                        <img
+                            src="https://drive.google.com/thumbnail?id=1h8yQqqUv_AmAzK9wH6NSdDz0oiDsflgH&sz=w1000"
+                            alt="Logo Avanzia"
+                            class="h-10 object-contain brightness-0 invert"
+                        />
+                    </div>
+                    <p
+                        class="max-w-sm text-[13px] leading-relaxed font-normal text-slate-300"
+                    >
+                        Capacitación online innovadora con certificaciones para
+                        impulsar el desarrollo profesional DOCENTE en América
+                        Latina. Potencia tu productividad con
+                        <b>Avanzia STUDIO</b> y estudia a tu ritmo con
+                        <b>Avanzia Flex</b>.
+                    </p>
+                    <div
+                        class="mt-2 flex flex-col gap-3 text-[13px] font-normal text-slate-400"
+                    >
+                        <a
+                            href="mailto:avanzia@avanzia.org"
+                            class="flex items-center gap-3 transition-colors hover:text-avanzia-orange"
+                            ><i
+                                class="fa-regular fa-envelope w-4 text-center text-avanzia-orange"
+                            ></i>
+                            avanzia@avanzia.org</a
+                        >
+                        <a
+                            href="tel:+51999576778"
+                            class="flex items-center gap-3 transition-colors hover:text-avanzia-orange"
+                            ><i
+                                class="fa-solid fa-phone w-4 text-center text-avanzia-orange"
+                            ></i>
+                            +51 999 576 778</a
+                        >
+                        <a
+                            href="https://avanzia.org"
+                            target="_blank"
+                            class="flex items-center gap-3 transition-colors hover:text-avanzia-orange"
+                            ><i
+                                class="fa-solid fa-globe w-4 text-center text-avanzia-orange"
+                            ></i>
+                            avanzia.org</a
+                        >
+                        <span class="flex items-center gap-3 text-slate-500"
+                            ><i
+                                class="fa-solid fa-file-invoice w-4 text-center"
+                            ></i>
+                            RUC: 20613857894</span
+                        >
+                    </div>
+                </div>
+
+                <!-- Columna 2: Respaldo Institucional y Convenios -->
+                <div class="flex flex-col lg:col-span-6">
+                    <h4
+                        class="mb-6 flex items-center gap-2 text-xs font-semibold tracking-widest text-slate-400 uppercase"
+                    >
+                        <i
+                            class="fa-solid fa-shield-halved text-avanzia-purple"
+                        ></i>
+                        Respaldo Institucional
+                    </h4>
+
+                    <div
+                        class="rounded-2xl border border-white/5 bg-white/5 p-8 backdrop-blur-sm"
+                    >
+                        <div
+                            class="grid grid-cols-2 items-center justify-items-center gap-x-4 gap-y-8 opacity-70 sm:grid-cols-3"
+                        >
+                            <div
+                                class="flex flex-col items-center gap-2 text-center transition-opacity hover:opacity-100"
+                            >
+                                <i
+                                    class="fa-solid fa-building-columns text-2xl text-slate-300"
+                                ></i>
+                                <span
+                                    class="text-[9px] leading-tight font-medium tracking-wider text-slate-400 uppercase"
+                                    >Instituto Superior<br />Nacional</span
+                                >
+                            </div>
+                            <div
+                                class="flex flex-col items-center gap-2 text-center transition-opacity hover:opacity-100"
+                            >
+                                <i
+                                    class="fa-solid fa-graduation-cap text-2xl text-avanzia-orange"
+                                ></i>
+                                <span
+                                    class="text-[9px] leading-tight font-medium tracking-wider text-slate-400 uppercase"
+                                    >Universidad<br />Pedagógica</span
+                                >
+                            </div>
+                            <div
+                                class="flex flex-col items-center gap-2 text-center transition-opacity hover:opacity-100"
+                            >
+                                <i
+                                    class="fa-solid fa-earth-americas text-2xl text-blue-400"
+                                ></i>
+                                <span
+                                    class="text-[9px] leading-tight font-medium tracking-wider text-slate-400 uppercase"
+                                    >Red Magisterial<br />Mundial</span
+                                >
+                            </div>
+                            <div
+                                class="flex flex-col items-center gap-2 text-center transition-opacity hover:opacity-100"
+                            >
+                                <i
+                                    class="fa-solid fa-landmark text-2xl text-avanzia-purple"
+                                ></i>
+                                <span
+                                    class="text-[9px] leading-tight font-medium tracking-wider text-slate-400 uppercase"
+                                    >Confederación<br />Educativa</span
+                                >
+                            </div>
+                            <div
+                                class="flex flex-col items-center gap-2 text-center transition-opacity hover:opacity-100"
+                            >
+                                <i
+                                    class="fa-solid fa-scale-balanced text-2xl text-amber-500"
+                                ></i>
+                                <span
+                                    class="text-[9px] leading-tight font-medium tracking-wider text-slate-400 uppercase"
+                                    >Cámara Global<br />de Consultores</span
+                                >
+                            </div>
+                            <div
+                                class="flex flex-col items-center gap-2 text-center transition-opacity hover:opacity-100"
+                            >
+                                <i
+                                    class="fa-solid fa-book-journal-whills text-2xl text-slate-300"
+                                ></i>
+                                <span
+                                    class="text-[9px] leading-tight font-medium tracking-wider text-slate-400 uppercase"
+                                    >Ministerio de<br />Educación</span
+                                >
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Columna 3: Transparencia -->
+                <div
+                    class="flex flex-col items-start gap-6 text-left lg:col-span-2 lg:items-end lg:text-right"
+                >
+                    <h4
+                        class="mb-0 text-xs font-semibold tracking-widest text-slate-400 uppercase"
+                    >
+                        Transparencia
+                    </h4>
+                    <a
+                        href="#"
+                        class="group relative flex aspect-square w-full max-w-[140px] flex-col items-center justify-center rounded-2xl border border-white/20 bg-transparent p-4 text-center transition-all hover:border-white/50"
+                    >
+                        <i
+                            class="fa-solid fa-book-open-reader mb-3 text-4xl text-slate-400 transition-colors group-hover:text-white"
+                        ></i>
+                        <span
+                            class="text-[10px] leading-tight font-medium tracking-widest text-slate-300 uppercase transition-colors group-hover:text-white"
+                            >Libro de<br />Reclamaciones</span
+                        >
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- FOOTER FINAL -->
+        <footer
+            class="relative z-30 flex flex-col items-center justify-center bg-[#0f172a] pt-12 pb-12 text-center"
+        >
+            <div
+                class="mb-8 flex flex-col gap-1 text-[13px] leading-relaxed font-medium text-slate-400"
+            >
+                <p>
+                    Creado y administrado por
+                    <span class="font-black text-slate-200"
+                        >AVANZIA AMERICA LATINA SAC</span
+                    >
+                </p>
+                <p>RUC 20613857894</p>
+                <p>Todos los derechos reservados ®</p>
+            </div>
+            <div
+                class="flex flex-wrap items-center justify-center gap-x-6 gap-y-4 text-[11px] font-black tracking-widest text-slate-500 uppercase"
+            >
+                <a href="#" class="transition-colors hover:text-avanzia-orange"
+                    >Copyright</a
+                >
+                <span class="hidden text-slate-700 sm:inline">|</span>
+                <a href="#" class="transition-colors hover:text-avanzia-orange"
+                    >Descargo de Responsabilidad</a
+                >
+                <span class="hidden text-slate-700 sm:inline">|</span>
+                <a
+                    href="#validacion"
+                    class="transition-colors hover:text-avanzia-orange"
+                    >Validación</a
+                >
+                <span class="hidden text-slate-700 sm:inline">|</span>
+                <a href="#" class="transition-colors hover:text-avanzia-orange"
+                    >Política de Privacidad</a
+                >
+            </div>
+        </footer>
+
+        <!-- MODAL DE TESTIMONIOS -->
+        <div
+            id="testimonial-modal"
+            class="pointer-events-none fixed inset-0 z-[100] flex items-center justify-center bg-slate-900/80 px-4 opacity-0 backdrop-blur-md transition-opacity duration-300"
+        >
+            <div
+                class="relative w-full max-w-lg scale-95 transform rounded-[2rem] bg-white p-8 shadow-2xl transition-transform duration-300 md:p-10"
+                id="testimonial-content-wrapper"
+            >
+                <button
+                    onclick="TestimonialSystem.closeModal()"
+                    class="absolute top-6 right-6 flex h-8 w-8 items-center justify-center rounded-full bg-slate-100 text-slate-400 transition-colors hover:text-slate-800"
+                >
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+                <h3 class="mb-2 text-3xl font-black text-slate-800">
+                    Tu experiencia
+                </h3>
+                <p class="mb-8 text-sm font-medium text-slate-500">
+                    Completa los campos para publicar tu opinión y ayudar a
+                    otros docentes.
+                </p>
+
+                <form
+                    id="testimonial-form"
+                    onsubmit="TestimonialSystem.submitForm(event)"
+                >
+                    <div class="space-y-5">
+                        <div>
+                            <label
+                                class="mb-2 block text-xs font-bold tracking-wide text-slate-500 uppercase"
+                                >Nombre Completo
+                                <span class="text-red-500">*</span></label
+                            >
+                            <input
+                                type="text"
+                                id="test-name"
+                                required
+                                placeholder="Ej. Ana Pérez"
+                                class="w-full rounded-xl border border-slate-200 bg-slate-50 p-4 text-sm transition-all outline-none focus:ring-2 focus:ring-avanzia-orange"
+                            />
+                        </div>
+
+                        <div class="flex gap-4">
+                            <div class="w-1/2">
+                                <label
+                                    class="mb-2 block text-xs font-bold tracking-wide text-slate-500 uppercase"
+                                    >País
+                                    <span class="text-red-500">*</span></label
+                                >
+                                <select
+                                    id="test-country"
+                                    required
+                                    class="w-full cursor-pointer rounded-xl border border-slate-200 bg-slate-50 p-4 text-sm transition-all outline-none focus:ring-2 focus:ring-avanzia-orange"
+                                >
+                                    <option value="pe" selected>Perú</option>
+                                    <option value="mx">México</option>
+                                    <option value="co">Colombia</option>
+                                    <option value="ar">Argentina</option>
+                                    <option value="cl">Chile</option>
+                                    <option value="ec">Ecuador</option>
+                                    <option value="bo">Bolivia</option>
+                                </select>
+                            </div>
+                            <div class="w-1/2">
+                                <label
+                                    class="mb-2 block text-xs font-bold tracking-wide text-slate-500 uppercase"
+                                    >Ciudad
+                                    <span class="text-red-500">*</span></label
+                                >
+                                <input
+                                    type="text"
+                                    id="test-city"
+                                    required
+                                    placeholder="Ej. Lima"
+                                    class="w-full rounded-xl border border-slate-200 bg-slate-50 p-4 text-sm transition-all outline-none focus:ring-2 focus:ring-avanzia-orange"
+                                />
+                            </div>
+                        </div>
+
+                        <div>
+                            <label
+                                class="mb-2 block text-xs font-bold tracking-wide text-slate-500 uppercase"
+                                >Institución (Opcional)</label
+                            >
+                            <input
+                                type="text"
+                                id="test-institution"
+                                placeholder="Ej. Univ. Nacional"
+                                class="w-full rounded-xl border border-slate-200 bg-slate-50 p-4 text-sm transition-all outline-none focus:ring-2 focus:ring-avanzia-orange"
+                            />
+                        </div>
+
+                        <div>
+                            <label
+                                class="mb-2 block text-xs font-bold tracking-wide text-slate-500 uppercase"
+                                >Curso / Servicio Llevado
+                                <span class="text-red-500">*</span></label
+                            >
+                            <select
+                                id="test-course"
+                                required
+                                class="w-full cursor-pointer rounded-xl border border-slate-200 bg-slate-50 p-4 text-sm transition-all outline-none focus:ring-2 focus:ring-avanzia-orange"
+                            >
+                                <option value="Avanzia STUDIO (Asistente IA)">
+                                    Avanzia STUDIO (Asistente IA)
+                                </option>
+                                <option value="IA Aplicada a la Docencia">
+                                    IA Aplicada a la Docencia
+                                </option>
+                                <option value="Evaluación Formativa y Rúbricas">
+                                    Evaluación Formativa y Rúbricas
+                                </option>
+                                <option value="Metodología de Investigación">
+                                    Metodología de Investigación
+                                </option>
+                                <option value="Diseño Universal de Aprendizaje">
+                                    Diseño Universal de Aprendizaje
+                                </option>
+                                <option value="Otro">Otro</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label
+                                class="mb-2 block text-xs font-bold tracking-wide text-slate-500 uppercase"
+                                >Calificación
+                                <span class="text-red-500">*</span></label
+                            >
+                            <div
+                                class="flex gap-2 text-3xl text-slate-200"
+                                id="star-rating"
+                            >
+                                <i
+                                    class="fa-solid fa-star cursor-pointer transition-colors hover:text-amber-400"
+                                    data-val="1"
+                                ></i>
+                                <i
+                                    class="fa-solid fa-star cursor-pointer transition-colors hover:text-amber-400"
+                                    data-val="2"
+                                ></i>
+                                <i
+                                    class="fa-solid fa-star cursor-pointer transition-colors hover:text-amber-400"
+                                    data-val="3"
+                                ></i>
+                                <i
+                                    class="fa-solid fa-star cursor-pointer transition-colors hover:text-amber-400"
+                                    data-val="4"
+                                ></i>
+                                <i
+                                    class="fa-solid fa-star cursor-pointer transition-colors hover:text-amber-400"
+                                    data-val="5"
+                                ></i>
+                            </div>
+                            <input
+                                type="hidden"
+                                id="test-rating"
+                                value="5"
+                                required
+                            />
+                        </div>
+
+                        <div>
+                            <label
+                                class="mb-2 block text-xs font-bold tracking-wide text-slate-500 uppercase"
+                                >Comentario
+                                <span class="text-red-500">*</span></label
+                            >
+                            <textarea
+                                id="test-comment"
+                                required
+                                rows="3"
+                                placeholder="¿Cómo te ha ayudado la IA en tu labor docente?"
+                                class="w-full resize-none rounded-xl border border-slate-200 bg-slate-50 p-4 text-sm transition-all outline-none focus:ring-2 focus:ring-avanzia-orange"
+                            ></textarea>
+                        </div>
+                    </div>
+
+                    <button
+                        type="submit"
+                        class="mt-8 w-full rounded-2xl bg-avanzia-black py-4 text-lg font-black text-white shadow-xl transition-all hover:-translate-y-1 hover:bg-slate-800"
+                    >
+                        Publicar Reseña
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- MODAL DE TEMARIO (Cursos) -->
+        <div
+            id="temario-modal"
+            class="pointer-events-none fixed inset-0 z-[100] flex items-center justify-center bg-slate-900/90 px-4 opacity-0 backdrop-blur-md transition-opacity duration-300"
+        >
+            <div
+                class="relative flex w-full max-w-3xl scale-95 transform flex-col rounded-[2rem] bg-white p-2 shadow-2xl transition-transform duration-300"
+                id="temario-content-wrapper"
+            >
+                <button
+                    onclick="CourseSystem.closeTemario()"
+                    class="absolute -top-4 -right-4 z-10 flex h-12 w-12 items-center justify-center rounded-full border border-slate-200 bg-white text-xl text-slate-800 shadow-lg transition-colors hover:text-avanzia-orange"
+                >
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+                <div
+                    class="flex items-center justify-between border-b border-slate-100 p-6 pb-4"
+                >
+                    <h3
+                        class="text-2xl font-black text-slate-800"
+                        id="temario-title"
+                    >
+                        Temario del Curso
+                    </h3>
+                </div>
+                <div
+                    class="flex min-h-[400px] w-full items-center justify-center overflow-hidden rounded-b-[1.5rem] bg-slate-100"
+                >
+                    <!-- Imagen Placeholder del Temario (Generada dinámicamente) -->
+                    <img
+                        id="temario-img"
+                        src=""
+                        alt="Temario"
+                        class="h-auto max-h-[70vh] w-full object-contain"
+                    />
+                </div>
+            </div>
+        </div>
+
+        <script>
+            // --- Utilidades de Interfaz y Animación ---
+            const UI = {
+                init() {
+                    this.setupMobileMenu();
+                    this.setupScrollObserver();
+                    this.initTypewriter();
+                },
+                initTypewriter() {
+                    const textToType =
+                        'Ahorra hasta 15 horas semanales en tu labor docente.';
+                    const elem = document.getElementById('typewriter-text');
+                    if (!elem) return;
+                    elem.classList.add('cursor-blink');
+                    let i = 0;
+
+                    function type() {
+                        if (i < textToType.length) {
+                            elem.innerHTML += textToType.charAt(i);
+                            i++;
+                            setTimeout(type, 40); // Velocidad de tipeo
+                        }
+                    }
+
+                    // Iniciar con un pequeño retraso
+                    setTimeout(type, 500);
+                },
+                setupMobileMenu() {
+                    const btn = document.getElementById('mobile-menu-btn');
+                    const menu = document.getElementById('mobile-menu');
+                    const close = document.getElementById('mobile-close-btn');
+                    const links = document.querySelectorAll('.mobile-link');
+
+                    // SEGURIDAD: Verificar si los elementos existen
+                    if (!btn || !menu || !close) return;
+
+                    const openMenu = () => {
+                        menu.classList.remove('hidden');
+                        menu.classList.add('flex');
+                    };
+                    const closeMenu = () => {
+                        menu.classList.add('hidden');
+                        menu.classList.remove('flex');
+                    };
+
+                    btn.addEventListener('click', openMenu);
+                    close.addEventListener('click', closeMenu);
+                    links.forEach((link) =>
+                        link.addEventListener('click', closeMenu),
+                    );
+                },
+                setupScrollObserver() {
+                    const reveals = document.querySelectorAll('.reveal');
+                    const observer = new IntersectionObserver(
+                        (entries) => {
+                            entries.forEach((entry) => {
+                                if (entry.isIntersecting) {
+                                    entry.target.classList.add('active');
+                                }
+                            });
+                        },
+                        { threshold: 0.1 },
+                    );
+                    reveals.forEach((r) => observer.observe(r));
+                },
+            };
+
+            // --- Sistema Dinámico de Cursos ---
+            const CourseSystem = {
+                data: [
+                    {
+                        id: 1,
+                        cat: 'ia',
+                        title: 'IA Aplicada a la Docencia 2.0',
+                        hours: 40,
+                        desc: 'Aprende a estructurar prompts pedagógicos y utilizar Avanzia STUDIO para automatizar tu gestión.',
+                        img: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=600&q=80',
+                        gradient: 'from-orange-500/80',
+                    },
+                    {
+                        id: 2,
+                        cat: 'pedagogia',
+                        title: 'Evaluación Formativa y Rúbricas',
+                        hours: 60,
+                        desc: 'Domina el enfoque por competencias y diseña instrumentos precisos según el marco normativo.',
+                        img: 'https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&w=600&q=80',
+                        gradient: 'from-purple-500/80',
+                    },
+                    {
+                        id: 3,
+                        cat: 'gestion',
+                        title: 'Gamificación y Aprendizaje Activo',
+                        hours: 30,
+                        desc: 'Estrategias prácticas para mantener el interés de los estudiantes utilizando dinámicas de juego.',
+                        img: 'https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=600&q=80',
+                        gradient: 'from-green-500/80',
+                    },
+                    {
+                        id: 4,
+                        cat: 'investigacion',
+                        title: 'Investigación Académica con IA',
+                        hours: 80,
+                        desc: 'Diseño de matrices de consistencia, redacción académica y análisis de datos asistido.',
+                        img: 'https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=600&q=80',
+                        gradient: 'from-blue-500/80',
+                    },
+                    {
+                        id: 5,
+                        cat: 'pedagogia',
+                        title: 'Diseño Universal de Aprendizaje (DUA)',
+                        hours: 45,
+                        desc: 'Adapta tus sesiones y materiales para garantizar un aula verdaderamente inclusiva.',
+                        img: 'https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=600&q=80',
+                        gradient: 'from-pink-500/80',
+                    },
+                    {
+                        id: 6,
+                        cat: 'herramientas',
+                        title: 'Google Workspace para Profesores',
+                        hours: 30,
+                        desc: 'Certificación en herramientas colaborativas para entornos sincrónicos y asincrónicos.',
+                        img: 'https://images.unsplash.com/photo-1542621334-a254cf47733d?auto=format&fit=crop&w=600&q=80',
+                        gradient: 'from-cyan-500/80',
+                    },
+                    {
+                        id: 7,
+                        cat: 'ia',
+                        title: 'Creación de Material Multimedia IA',
+                        hours: 40,
+                        desc: 'Genera presentaciones, imágenes y recursos visuales impactantes con herramientas generativas.',
+                        img: 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=600&q=80',
+                        gradient: 'from-rose-500/80',
+                    },
+                    {
+                        id: 8,
+                        cat: 'gestion',
+                        title: 'Gestión Emocional en el Aula',
+                        hours: 50,
+                        desc: 'Estrategias de contención y desarrollo de habilidades blandas en estudiantes.',
+                        img: 'https://images.unsplash.com/photo-1529390079861-591de354faf5?auto=format&fit=crop&w=600&q=80',
+                        gradient: 'from-amber-500/80',
+                    },
+                ],
+                categories: [
+                    { id: 'todos', name: 'Todos los Cursos' },
+                    { id: 'ia', name: 'Inteligencia Artificial' },
+                    { id: 'pedagogia', name: 'Pedagogía y Evaluación' },
+                    { id: 'gestion', name: 'Gestión y Habilidades' },
+                    { id: 'herramientas', name: 'Herramientas Digitales' },
+                    { id: 'investigacion', name: 'Investigación' },
+                ],
+                activeCategory: 'todos',
+                currentPage: 1,
+                itemsPerPage: 6,
+                filteredData: [],
+
+                init() {
+                    this.renderCategories();
+                    this.filterData();
+
+                    document
+                        .getElementById('btn-prev-courses')
+                        .addEventListener('click', () => this.changePage(-1));
+                    document
+                        .getElementById('btn-next-courses')
+                        .addEventListener('click', () => this.changePage(1));
+                },
+
+                renderCategories() {
+                    const container =
+                        document.getElementById('course-categories');
+                    container.innerHTML = '';
+                    this.categories.forEach((cat) => {
+                        const isActive = cat.id === this.activeCategory;
+                        const btn = document.createElement('button');
+                        btn.className = `px-5 py-2.5 rounded-full font-bold text-sm transition-all shadow-sm ${isActive ? 'bg-avanzia-orange text-white border-avanzia-orange' : 'bg-slate-800 text-slate-300 border border-slate-600 hover:bg-slate-700'}`;
+                        btn.textContent = cat.name;
+                        btn.onclick = () => {
+                            this.activeCategory = cat.id;
+                            this.currentPage = 1;
+                            this.renderCategories(); // Update active states
+                            this.filterData();
+                        };
+                        container.appendChild(btn);
+                    });
+                },
+
+                filterData() {
+                    if (this.activeCategory === 'todos') {
+                        this.filteredData = [...this.data];
+                    } else {
+                        this.filteredData = this.data.filter(
+                            (c) => c.cat === this.activeCategory,
+                        );
+                    }
+                    this.renderGrid();
+                },
+
+                changePage(delta) {
+                    this.currentPage += delta;
+                    this.renderGrid();
+                },
+
+                renderGrid() {
+                    const grid = document.getElementById('courses-grid');
+                    const paginator =
+                        document.getElementById('courses-pagination');
+                    const indicator = document.getElementById('page-indicator');
+                    const btnPrev = document.getElementById('btn-prev-courses');
+                    const btnNext = document.getElementById('btn-next-courses');
+
+                    grid.innerHTML = '';
+
+                    const totalPages = Math.ceil(
+                        this.filteredData.length / this.itemsPerPage,
+                    );
+                    if (totalPages <= 1) {
+                        paginator.style.display = 'none';
+                    } else {
+                        paginator.style.display = 'flex';
+                        indicator.textContent = `${this.currentPage} / ${totalPages}`;
+                        btnPrev.disabled = this.currentPage === 1;
+                        btnNext.disabled = this.currentPage === totalPages;
+                    }
+
+                    const startIndex =
+                        (this.currentPage - 1) * this.itemsPerPage;
+                    const pageItems = this.filteredData.slice(
+                        startIndex,
+                        startIndex + this.itemsPerPage,
+                    );
+
+                    if (pageItems.length === 0) {
+                        grid.innerHTML = `<div class="col-span-full text-center py-10 text-slate-400">No se encontraron cursos en esta categoría.</div>`;
+                        return;
+                    }
+
+                    pageItems.forEach((course, index) => {
+                        const catName =
+                            this.categories.find((c) => c.id === course.cat)
+                                ?.name || 'Especialización';
+                        // Animación stagger
+                        const delay = index * 0.1;
+
+                        grid.innerHTML += `
+            <div class="bg-slate-800 border border-slate-700/50 rounded-3xl overflow-hidden shadow-2xl hover:shadow-[0_20px_40px_rgba(218,150,69,0.15)] hover:border-slate-600 transition-all duration-300 flex flex-col group animate-fade-in" style="animation-delay: ${delay}s">
+              <div class="relative h-56 overflow-hidden">
+                <img src="${course.img}" alt="${course.title}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                <div class="absolute inset-0 bg-gradient-to-t ${course.gradient} to-slate-900 opacity-90 mix-blend-multiply group-hover:opacity-75 transition-opacity"></div>
+                <div class="absolute top-4 left-4 flex gap-2">
+                  <span class="bg-white/10 backdrop-blur-md text-white border border-white/20 text-[10px] font-black px-3 py-1 rounded-full uppercase shadow-sm">${catName}</span>
+                </div>
+                <div class="absolute bottom-4 left-4">
+                  <span class="bg-black/60 backdrop-blur-sm text-white text-[10px] font-bold px-3 py-1.5 rounded-lg uppercase border border-white/10"><i class="fa-regular fa-clock text-avanzia-orange"></i> ${course.hours} Hrs</span>
+                </div>
+              </div>
+              <div class="p-8 flex-grow flex flex-col bg-slate-800">
+                <h3 class="text-xl font-black text-white mb-3 leading-tight group-hover:text-avanzia-orange transition-colors">${course.title}</h3>
+                <p class="text-sm text-slate-400 mb-8 flex-grow leading-relaxed">${course.desc}</p>
+                <div class="grid grid-cols-2 gap-3 mt-auto">
+                  <button onclick="CourseSystem.openTemario('${course.title}')" class="border border-slate-600 hover:border-slate-400 text-slate-300 text-sm font-black py-3 rounded-xl transition-all hover:bg-slate-700">Ver temario</button>
+                  <button class="bg-avanzia-orange hover:bg-avanzia-orange-dark text-white text-sm font-black py-3 rounded-xl transition-all shadow-md hover:shadow-avanzia-orange/30">Lo quiero</button>
+                </div>
+              </div>
+            </div>
+          `;
+                    });
+                },
+
+                openTemario(title) {
+                    document.getElementById('temario-title').textContent =
+                        title;
+                    // Mock image generation using placehold.co for the modal
+                    const imgUrl = `https://placehold.co/800x1200/f8fafc/6b72af?text=Temario+Oficial%5Cn${encodeURIComponent(title)}%5Cn%5Cn-Modulo+1%5Cn-Modulo+2%5Cn-Modulo+3&font=Montserrat`;
+                    document.getElementById('temario-img').src = imgUrl;
+
+                    const modal = document.getElementById('temario-modal');
+                    const wrapper = document.getElementById(
+                        'temario-content-wrapper',
+                    );
+                    modal.classList.remove('opacity-0', 'pointer-events-none');
+                    setTimeout(
+                        () =>
+                            wrapper.classList.replace('scale-95', 'scale-100'),
+                        10,
+                    );
+                },
+                closeTemario() {
+                    const modal = document.getElementById('temario-modal');
+                    const wrapper = document.getElementById(
+                        'temario-content-wrapper',
+                    );
+                    wrapper.classList.replace('scale-100', 'scale-95');
+                    setTimeout(
+                        () =>
+                            modal.classList.add(
+                                'opacity-0',
+                                'pointer-events-none',
+                            ),
+                        300,
+                    );
+                },
+            };
+
+            // --- Sistema de Testimonios Dinámicos Rotativos ---
+            const TestimonialSystem = {
+                counters: { teachers: 2000, reviews: 1248 },
+                rating: 5,
+                intervalId: null,
+                rotationTime: 10000, // 10 segundos
+                currentPage: 0,
+                itemsPerPage: 6,
+
+                allData: [
+                    {
+                        name: 'María Gómez',
+                        country: 'pe',
+                        city: 'Lima',
+                        inst: 'IEP Innova',
+                        course: 'Evaluación Formativa',
+                        comment:
+                            'Increíble. Redujo mis horas de planificación a solo minutos. El enfoque de evaluación formativa es exacto a lo que pide el MINEDU.',
+                        stars: 5,
+                    },
+                    {
+                        name: 'Carlos Ruiz',
+                        country: 'co',
+                        city: 'Bogotá',
+                        inst: 'Univ. Nacional',
+                        course: 'IA Aplicada a la Docencia',
+                        comment:
+                            'El curso de IA me abrió la mente. Ahora estructuro proyectos completos en tiempo récord.',
+                        stars: 5,
+                    },
+                    {
+                        name: 'Elena Suárez',
+                        country: 'mx',
+                        city: 'CDMX',
+                        inst: 'Tec. Monterrey',
+                        course: 'Investigación Académica',
+                        comment:
+                            'La metodología se hace más digerible. Excelentes profesores y una plataforma muy intuitiva.',
+                        stars: 5,
+                    },
+                    {
+                        name: 'Javier Pérez',
+                        country: 'cl',
+                        city: 'Santiago',
+                        inst: 'Liceo Bicentenario',
+                        course: 'Avanzia STUDIO',
+                        comment:
+                            'La integración del marco curricular es perfecta. Mis unidades didácticas salen listas para aplicar.',
+                        stars: 4,
+                    },
+                    {
+                        name: 'Andrea Rojas',
+                        country: 'ar',
+                        city: 'Buenos Aires',
+                        inst: 'UBA',
+                        course: 'Diseño Universal',
+                        comment:
+                            'Me ayudó muchísimo a adaptar mis clases para asegurar la inclusión de todos mis alumnos.',
+                        stars: 5,
+                    },
+                    {
+                        name: 'Luis Fernando',
+                        country: 'ec',
+                        city: 'Quito',
+                        inst: 'Colegio Mejía',
+                        course: 'Google Workspace',
+                        comment:
+                            'Por fin domino las herramientas colaborativas. Mis clases virtuales mejoraron al 100%.',
+                        stars: 5,
+                    },
+                    // Página 2
+                    {
+                        name: 'Patricia L.',
+                        country: 'pe',
+                        city: 'Arequipa',
+                        inst: 'Colegio San José',
+                        course: 'Avanzia STUDIO',
+                        comment:
+                            'Las rúbricas que genera la IA tienen un nivel de detalle que me tomaba horas redactar manualmente.',
+                        stars: 5,
+                    },
+                    {
+                        name: 'Roberto M.',
+                        country: 'ar',
+                        city: 'Córdoba',
+                        inst: 'IES',
+                        course: 'IA Aplicada a la Docencia',
+                        comment:
+                            'El enfoque práctico del curso es invaluable. No es solo teoría, aprendes creando.',
+                        stars: 4,
+                    },
+                    {
+                        name: 'Sofía V.',
+                        country: 'bo',
+                        city: 'La Paz',
+                        inst: 'UMSA',
+                        course: 'Metodología de Investigación',
+                        comment:
+                            'Pude armar mi matriz de consistencia sin estrés. Gran apoyo de los capacitadores.',
+                        stars: 5,
+                    },
+                    {
+                        name: 'Diego A.',
+                        country: 'pe',
+                        city: 'Trujillo',
+                        inst: 'UCV',
+                        course: 'Avanzia STUDIO',
+                        comment:
+                            'Subo mis propios PDFs y la IA me crea cuestionarios precisos. Totalmente recomendado.',
+                        stars: 5,
+                    },
+                    {
+                        name: 'Carolina B.',
+                        country: 'co',
+                        city: 'Medellín',
+                        inst: 'EAFIT',
+                        course: 'Google Workspace',
+                        comment:
+                            'Muy bien estructurado. Aprendí trucos que me ahorran tiempo todos los días.',
+                        stars: 5,
+                    },
+                    {
+                        name: 'Miguel T.',
+                        country: 'mx',
+                        city: 'Guadalajara',
+                        inst: 'UDG',
+                        course: 'Evaluación Formativa',
+                        comment:
+                            'Cambió mi forma de evaluar. Ahora mis estudiantes entienden exactamente qué se espera de ellos.',
+                        stars: 5,
+                    },
+                ],
+
+                init() {
+                    this.setupStars();
+                    this.simulateGeoLocation();
+                    this.renderCurrentPage();
+                    this.startRotation();
+                },
+
+                simulateGeoLocation() {
+                    const select = document.getElementById('test-country');
+                    setTimeout(() => {
+                        if (!select.value) select.value = 'pe';
+                    }, 500);
+                },
+
+                setupStars() {
+                    const stars = document.querySelectorAll('#star-rating i');
+                    const ratingInput = document.getElementById('test-rating');
+                    this.updateStarVisuals(5, stars);
+                    stars.forEach((star) => {
+                        star.addEventListener('click', (e) => {
+                            const val = parseInt(
+                                e.currentTarget.getAttribute('data-val'),
+                            );
+                            this.rating = val;
+                            ratingInput.value = val;
+                            this.updateStarVisuals(val, stars);
+                        });
+                        star.addEventListener('mouseover', (e) => {
+                            const val = parseInt(
+                                e.currentTarget.getAttribute('data-val'),
+                            );
+                            this.updateStarVisuals(val, stars, true);
+                        });
+                        star.addEventListener('mouseout', () => {
+                            this.updateStarVisuals(this.rating, stars);
+                        });
+                    });
+                },
+
+                updateStarVisuals(val, stars, isHover = false) {
+                    stars.forEach((s, index) => {
+                        if (index < val) {
+                            s.classList.replace(
+                                'text-slate-200',
+                                'text-amber-400',
+                            );
+                        } else {
+                            s.classList.replace(
+                                'text-amber-400',
+                                'text-slate-200',
+                            );
+                        }
+                    });
+                },
+
+                generateStarsHTML(val) {
+                    let html = '';
+                    for (let i = 1; i <= 5; i++) {
+                        if (i <= val)
+                            html += `<i class="fa-solid fa-star"></i>`;
+                        else
+                            html += `<i class="fa-solid fa-star text-slate-200"></i>`;
+                    }
+                    return html;
+                },
+
+                createCardHTML(data, index) {
+                    const flagUrl = `https://flagcdn.com/w160/${data.country}.png`;
+                    const locationText = data.inst
+                        ? `${data.city} • ${data.inst}`
+                        : `${data.city}`;
+                    const delay = (index % this.itemsPerPage) * 0.1; // Staggered entrance
+
+                    return `
+          <div class="card-testimonial rounded-3xl p-8 md:p-10 shadow-lg border border-slate-100 flex flex-col animate-fade-in" style="--flag-url: url('${flagUrl}'); animation-delay: ${delay}s;">
+            <div class="testimonial-content h-full flex flex-col">
+              <div class="flex text-amber-400 text-lg mb-6">
+                ${this.generateStarsHTML(data.stars)}
+              </div>
+              <p class="text-slate-600 mb-8 text-lg italic flex-grow leading-relaxed">"${data.comment}"</p>
+              <div class="border-t border-slate-100 pt-6 mt-auto">
+                <h4 class="font-black text-slate-900 text-xl mb-1">${data.name}</h4>
+                <p class="text-sm text-slate-500 font-medium">${locationText}</p>
+                <p class="text-xs bg-slate-100 text-slate-600 px-3 py-1.5 rounded-lg inline-block mt-3 font-bold">${data.course}</p>
+              </div>
+            </div>
+          </div>
+        `;
+                },
+
+                renderCurrentPage() {
+                    const grid = document.getElementById('testimonials-grid');
+                    grid.innerHTML = '';
+
+                    const start = this.currentPage * this.itemsPerPage;
+                    const itemsToRender = this.allData.slice(
+                        start,
+                        start + this.itemsPerPage,
+                    );
+
+                    // Reiniciar barra de progreso css
+                    this.resetProgressBar();
+
+                    itemsToRender.forEach((item, index) => {
+                        grid.innerHTML += this.createCardHTML(item, index);
+                    });
+                },
+
+                startRotation() {
+                    this.animateProgressBar();
+                    this.intervalId = setInterval(() => {
+                        this.currentPage++;
+                        if (
+                            this.currentPage >=
+                            Math.ceil(this.allData.length / this.itemsPerPage)
+                        ) {
+                            this.currentPage = 0;
+                        }
+                        this.renderCurrentPage();
+                        this.animateProgressBar();
+                    }, this.rotationTime);
+                },
+
+                stopRotation() {
+                    clearInterval(this.intervalId);
+                },
+
+                animateProgressBar() {
+                    const bar = document.getElementById(
+                        'testimonial-progress-bar',
+                    );
+                    bar.style.transition = 'none';
+                    bar.style.width = '0%';
+                    // Force reflow
+                    void bar.offsetWidth;
+                    bar.style.transition = `width ${this.rotationTime}ms linear`;
+                    bar.style.width = '100%';
+                },
+
+                resetProgressBar() {
+                    const bar = document.getElementById(
+                        'testimonial-progress-bar',
+                    );
+                    bar.style.transition = 'none';
+                    bar.style.width = '0%';
+                },
+
+                openModal() {
+                    const modal = document.getElementById('testimonial-modal');
+                    const wrapper = document.getElementById(
+                        'testimonial-content-wrapper',
+                    );
+                    modal.classList.remove('opacity-0', 'pointer-events-none');
+                    setTimeout(
+                        () =>
+                            wrapper.classList.replace('scale-95', 'scale-100'),
+                        10,
+                    );
+                    // Pausar rotación mientras el modal está abierto
+                    clearInterval(this.intervalId);
+                },
+
+                closeModal() {
+                    const modal = document.getElementById('testimonial-modal');
+                    const wrapper = document.getElementById(
+                        'testimonial-content-wrapper',
+                    );
+                    wrapper.classList.replace('scale-100', 'scale-95');
+                    setTimeout(
+                        () =>
+                            modal.classList.add(
+                                'opacity-0',
+                                'pointer-events-none',
+                            ),
+                        300,
+                    );
+                    // Reanudar rotación
+                    this.startRotation();
+                },
+
+                submitForm(e) {
+                    e.preventDefault();
+
+                    const data = {
+                        name: document.getElementById('test-name').value.trim(),
+                        country: document.getElementById('test-country').value,
+                        city: document.getElementById('test-city').value.trim(),
+                        inst: document
+                            .getElementById('test-institution')
+                            .value.trim(),
+                        course: document.getElementById('test-course').value,
+                        comment: document
+                            .getElementById('test-comment')
+                            .value.trim(),
+                        stars: parseInt(
+                            document.getElementById('test-rating').value,
+                        ),
+                    };
+
+                    if (!data.name || !data.city || !data.comment) return;
+
+                    // 1. Incrementar contadores (Animado visualmente)
+                    this.counters.teachers += 1;
+                    this.counters.reviews += 1;
+                    document.getElementById('counter-teachers').textContent =
+                        new Intl.NumberFormat().format(this.counters.teachers);
+                    document.getElementById('counter-reviews').textContent =
+                        new Intl.NumberFormat().format(this.counters.reviews);
+
+                    // 2. Añadir al inicio del array de datos
+                    this.allData.unshift(data);
+
+                    // 3. Renderizar la primera página para que se vea inmediatamente
+                    this.currentPage = 0;
+                    this.renderCurrentPage();
+
+                    // 4. Cerrar y limpiar
+                    this.closeModal();
+                    document.getElementById('testimonial-form').reset();
+                    this.rating = 5;
+                    document.getElementById('test-rating').value = 5;
+                    this.updateStarVisuals(
+                        5,
+                        document.querySelectorAll('#star-rating i'),
+                    );
+
+                    // Reiniciar timer
+                    clearInterval(this.intervalId);
+                    this.startRotation();
+                },
+            };
+
+            // Boot Up
+            document.addEventListener('DOMContentLoaded', () => {
+                UI.init();
+                CourseSystem.init();
+                TestimonialSystem.init();
+            });
+        </script>
+    </body>
+</html>
