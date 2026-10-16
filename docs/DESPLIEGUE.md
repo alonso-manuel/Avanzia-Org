@@ -83,7 +83,9 @@ El WordPress queda intacto en `avanzia.org/`. **Volver atrás**: devolver la ra�
 
 ### Opción B: si la raíz del documento no se puede cambiar
 
-1. Vaciar `avanzia.org/` (el WordPress ya está respaldado).
+1. Vaciar `avanzia.org/` (el WordPress ya está respaldado), **excepto `wp-content/uploads/`**: ahí están las imágenes que se siguen usando desde fuera (redes, correos, Studio usa `uploads/2025/01/cropped-iconoavanzia-32x32.png` como favicon). Borrar el resto de `wp-content` (`plugins`, `themes`, `upgrade`…): sin WordPress, sus archivos PHP quedarían ejecutables.
+   - Subir a `avanzia.org/wp-content/` un `.htaccess` que impida ejecutar PHP ahí (contenido: `<FilesMatch "\.(php[0-9]?|phtml|phar|pl|py|cgi|sh)$"> Require all denied </FilesMatch>` y `Options -Indexes`).
+   - Buscar archivos `.php` dentro de `uploads` y borrarlos: en una carpeta de imágenes no deberían existir.
 2. Copiar ahí **solo el contenido** de `avanzia-landing/public/`: `build/`, `images/`, `videos/`, `.htaccess`, `robots.txt`, `favicon.ico`, `icono-192.png`, `apple-touch-icon.png`. En el File Manager, activar *Settings → Show Hidden Files* para ver `.htaccess`.
 3. Reemplazar su `index.php` por `scripts/index-carpeta-publica.php` (renombrado a `index.php`): carga el proyecto desde `../avanzia-landing` y le indica que lo público está en `avanzia.org/`.
 4. **En cada actualización** volver a copiar `public/build/` (y las imágenes nuevas) a `avanzia.org/`.
