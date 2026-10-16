@@ -70,13 +70,30 @@ cPanel → *Domains* → *Create A New Domain* → `prueba.avanzia.org`, desmarc
 
 Probar: portada, catálogo y temarios, carrito y WhatsApp, testimonios (publicar uno), convenios (enviar una solicitud y verificar que llegue el correo), validación de certificados, libro de reclamaciones, páginas legales, `/sitemap.xml`, redirecciones (`/cursos/` → portada) y la vista en celular.
 
-## 6. Lanzamiento: cambiar avanzia.org
+## 6. Lanzamiento en avanzia.org (también sirve si se lanza sin sitio de prueba)
 
-1. Cambiar la **raíz del documento** de `avanzia.org` a `/home/fmqndrdnls/avanzia-landing/public`. El WordPress queda intacto en `avanzia.org/`.
-2. En `.env`: `APP_URL=https://avanzia.org` y luego `php artisan config:cache`.
-3. Google Search Console: verificar el dominio y enviar `https://avanzia.org/sitemap.xml`.
+Antes: respaldo del WordPress (archivos de `avanzia.org/` + su base de datos) y de la base de Studio. En `.env`: `APP_URL=https://avanzia.org`.
 
-**Volver atrás**: devolver la raíz del documento a `/home/fmqndrdnls/avanzia.org`. El WordPress vuelve en un minuto.
+**Nunca** subir el proyecto completo dentro de `avanzia.org/`: es la carpeta pública y quedaría expuesto `avanzia.org/.env`.
+
+### Opción A (preferida): cambiar la raíz del documento
+
+cPanel → *Domains* → `avanzia.org` → *Manage* → **Document Root** = `/home/fmqndrdnls/avanzia-landing/public`.
+El WordPress queda intacto en `avanzia.org/`. **Volver atrás**: devolver la raíz a `/home/fmqndrdnls/avanzia.org`.
+
+### Opción B: si la raíz del documento no se puede cambiar
+
+1. Vaciar `avanzia.org/` (el WordPress ya está respaldado).
+2. Copiar ahí **solo el contenido** de `avanzia-landing/public/`: `build/`, `images/`, `videos/`, `.htaccess`, `robots.txt`, `favicon.ico`, `icono-192.png`, `apple-touch-icon.png`. En el File Manager, activar *Settings → Show Hidden Files* para ver `.htaccess`.
+3. Reemplazar su `index.php` por `scripts/index-carpeta-publica.php` (renombrado a `index.php`): carga el proyecto desde `../avanzia-landing` y le indica que lo público está en `avanzia.org/`.
+4. **En cada actualización** volver a copiar `public/build/` (y las imágenes nuevas) a `avanzia.org/`.
+
+**Volver atrás**: vaciar `avanzia.org/` y descomprimir ahí el respaldo del WordPress.
+
+### Después de lanzar
+
+- Probar la lista del punto 5 en `https://avanzia.org`.
+- Google Search Console: verificar el dominio y enviar `https://avanzia.org/sitemap.xml`.
 
 ## Actualizaciones posteriores
 
