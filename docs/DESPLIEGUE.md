@@ -28,6 +28,7 @@ Genera `avanzia-landing-produccion.zip` (~17 MB): frontend compilado, dependenci
 2. **Respaldo de la base de datos de Studio** (es la misma): cPanel → _Backup_ o _phpMyAdmin → Exportar_. Guardarlo fuera del servidor.
 3. **Subir y descomprimir**: _File Manager_ → en `/home/fmqndrdnls` crear la carpeta `avanzia-landing`, subir el .zip ahí y _Extract_. Borrar el .zip después.
 4. **`.env`**: copiar `.env.production.example` como `.env` y completar base de datos (la de Studio), contraseña del correo y, mientras se prueba, `APP_URL` con la dirección del sitio de prueba.
+   - **Correo:** avanzia.org usa **Google Workspace** (MX `smtp.google.com`), no el correo del hosting. Se envía por `smtp.gmail.com:465` con `avanzia@avanzia.org` y una **contraseña de aplicación** (myaccount.google.com/apppasswords; requiere verificación en 2 pasos).
 5. **Permisos**: `storage/` y `bootstrap/cache/` deben poder escribirse (755 en carpetas suele bastar).
 
 ## 3a. Sin Terminal (situación actual)
