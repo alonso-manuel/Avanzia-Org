@@ -144,7 +144,7 @@ const telefonoHref = `tel:${TELEFONO.replace(/\s/g, '')}`;
                         :href="RUTAS_LEGALES.convenios"
                         class="mt-8 flex items-center justify-center gap-2 text-sm font-semibold text-slate-300 transition-colors hover:text-avanzia-orange"
                     >
-                        Ver los {{ enPagina }} convenios
+                        Ver convenios
                         <ArrowRight class="size-4" />
                     </Link>
                 </div>

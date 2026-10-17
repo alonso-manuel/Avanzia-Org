@@ -24,9 +24,9 @@ Genera `avanzia-landing-produccion.zip` (~17 MB): frontend compilado, dependenci
 
 ## 2. Preparar el hosting (una sola vez)
 
-1. **PHP**: cPanel → *Select PHP Version* → 8.3 o 8.4, con `pdo_mysql`, `mbstring`, `fileinfo`, `openssl`, `zip`.
-2. **Respaldo de la base de datos de Studio** (es la misma): cPanel → *Backup* o *phpMyAdmin → Exportar*. Guardarlo fuera del servidor.
-3. **Subir y descomprimir**: *File Manager* → en `/home/fmqndrdnls` crear la carpeta `avanzia-landing`, subir el .zip ahí y *Extract*. Borrar el .zip después.
+1. **PHP**: cPanel → _Select PHP Version_ → 8.3 o 8.4, con `pdo_mysql`, `mbstring`, `fileinfo`, `openssl`, `zip`.
+2. **Respaldo de la base de datos de Studio** (es la misma): cPanel → _Backup_ o _phpMyAdmin → Exportar_. Guardarlo fuera del servidor.
+3. **Subir y descomprimir**: _File Manager_ → en `/home/fmqndrdnls` crear la carpeta `avanzia-landing`, subir el .zip ahí y _Extract_. Borrar el .zip después.
 4. **`.env`**: copiar `.env.production.example` como `.env` y completar base de datos (la de Studio), contraseña del correo y, mientras se prueba, `APP_URL` con la dirección del sitio de prueba.
 5. **Permisos**: `storage/` y `bootstrap/cache/` deben poder escribirse (755 en carpetas suele bastar).
 
@@ -34,11 +34,11 @@ Genera `avanzia-landing-produccion.zip` (~17 MB): frontend compilado, dependenci
 
 1. **Clave de la aplicación**: en local, `php artisan key:generate --show` (no modifica tu `.env` local). Copiar el resultado (`base64:…`) en `APP_KEY` del `.env` del servidor.
 2. **Tablas**: generar el SQL con las tablas de la landing (cursos y convenios con datos; testimonios, interacciones y solicitudes vacías; y `landing_migrations` con todas las migraciones marcadas como hechas) e importarlo en **phpMyAdmin → base de producción → Importar**. No toca tablas de Studio.
-   - Se genera desde la base local con `mysqldump` (ver cómo en el historial del proyecto; el archivo queda en `despliegue/`, que no se sube al repositorio).
-   - **Importarlo una sola vez**: incluye `DROP TABLE IF EXISTS` de las tablas de la landing, así que reimportarlo borraría los testimonios y solicitudes que ya existan en producción.
+    - Se genera desde la base local con `mysqldump` (ver cómo en el historial del proyecto; el archivo queda en `despliegue/`, que no se sube al repositorio).
+    - **Importarlo una sola vez**: incluye `DROP TABLE IF EXISTS` de las tablas de la landing, así que reimportarlo borraría los testimonios y solicitudes que ya existan en producción.
 3. **Cachés**: opcionales. Sin `config:cache` el sitio funciona igual.
 
-## 3b. Con Terminal (cPanel → *Terminal*)
+## 3b. Con Terminal (cPanel → _Terminal_)
 
 ```bash
 cd ~/avanzia-landing
@@ -50,7 +50,7 @@ php artisan config:cache && php artisan route:cache && php artisan view:cache
 
 `migrate` usa la tabla `landing_migrations` (Studio usa `migrations`) y las migraciones de tablas compartidas se saltan si ya existen. Ver `docs/CONTEXTO_AVANZIA.md`, "Base de datos compartida".
 
-## 4. Cron (cPanel → *Cron Jobs*, cada minuto)
+## 4. Cron (cPanel → _Cron Jobs_, cada minuto)
 
 ```
 * * * * * cd /home/fmqndrdnls/avanzia-landing && php artisan schedule:run >> /dev/null 2>&1
@@ -62,7 +62,7 @@ Procesa la cola `landing` (correos de solicitudes de convenio). Sin esto, las so
 
 Usar un **subdominio** (p. ej. `prueba.avanzia.org`), no una subcarpeta como `avanzia.org/landing/`: el sitio usa rutas desde la raíz (`/convenios`, `/images/…`, `/opiniones`) que en una subcarpeta irían al WordPress, y además el proyecto quedaría dentro de una carpeta pública.
 
-cPanel → *Domains* → *Create A New Domain* → `prueba.avanzia.org`, desmarcar "Share document root" y poner como **raíz del documento**:
+cPanel → _Domains_ → _Create A New Domain_ → `prueba.avanzia.org`, desmarcar "Share document root" y poner como **raíz del documento**:
 
 ```
 /home/fmqndrdnls/avanzia-landing/public
@@ -78,15 +78,15 @@ Antes: respaldo del WordPress (archivos de `avanzia.org/` + su base de datos) y 
 
 ### Opción A (preferida): cambiar la raíz del documento
 
-cPanel → *Domains* → `avanzia.org` → *Manage* → **Document Root** = `/home/fmqndrdnls/avanzia-landing/public`.
+cPanel → _Domains_ → `avanzia.org` → _Manage_ → **Document Root** = `/home/fmqndrdnls/avanzia-landing/public`.
 El WordPress queda intacto en `avanzia.org/`. **Volver atrás**: devolver la raíz a `/home/fmqndrdnls/avanzia.org`.
 
 ### Opción B: si la raíz del documento no se puede cambiar
 
 1. Vaciar `avanzia.org/` (el WordPress ya está respaldado), **excepto `wp-content/uploads/`**: ahí están las imágenes que se siguen usando desde fuera (redes, correos, Studio usa `uploads/2025/01/cropped-iconoavanzia-32x32.png` como favicon). Borrar el resto de `wp-content` (`plugins`, `themes`, `upgrade`…): sin WordPress, sus archivos PHP quedarían ejecutables.
-   - Subir a `avanzia.org/wp-content/` un `.htaccess` que impida ejecutar PHP ahí (contenido: `<FilesMatch "\.(php[0-9]?|phtml|phar|pl|py|cgi|sh)$"> Require all denied </FilesMatch>` y `Options -Indexes`).
-   - Buscar archivos `.php` dentro de `uploads` y borrarlos: en una carpeta de imágenes no deberían existir.
-2. Copiar ahí **solo el contenido** de `avanzia-landing/public/`: `build/`, `images/`, `videos/`, `.htaccess`, `robots.txt`, `favicon.ico`, `icono-192.png`, `apple-touch-icon.png`. En el File Manager, activar *Settings → Show Hidden Files* para ver `.htaccess`.
+    - Subir a `avanzia.org/wp-content/` un `.htaccess` que impida ejecutar PHP ahí (contenido: `<FilesMatch "\.(php[0-9]?|phtml|phar|pl|py|cgi|sh)$"> Require all denied </FilesMatch>` y `Options -Indexes`).
+    - Buscar archivos `.php` dentro de `uploads` y borrarlos: en una carpeta de imágenes no deberían existir.
+2. Copiar ahí **solo el contenido** de `avanzia-landing/public/`: `build/`, `images/`, `videos/`, `.htaccess`, `robots.txt`, `favicon.ico`, `icono-192.png`, `apple-touch-icon.png`. En el File Manager, activar _Settings → Show Hidden Files_ para ver `.htaccess`.
 3. Reemplazar su `index.php` por `scripts/index-carpeta-publica.php` (renombrado a `index.php`): carga el proyecto desde `../avanzia-landing` y le indica que lo público está en `avanzia.org/`.
 4. **En cada actualización** volver a copiar `public/build/` (y las imágenes nuevas) a `avanzia.org/`.
 

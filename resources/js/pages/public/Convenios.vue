@@ -70,7 +70,7 @@ onMounted(() => {
     <section class="relative z-10 px-4 py-12">
         <div
             v-reveal
-            class="mx-auto grid max-w-7xl gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+            class="mx-auto grid max-w-7xl grid-cols-[repeat(auto-fit,minmax(260px,300px))] justify-center gap-6"
         >
             <article
                 v-for="(convenio, i) in convenios"
