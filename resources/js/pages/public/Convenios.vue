@@ -79,14 +79,17 @@ onMounted(() => {
                 :style="{ animationDelay: `${i * 0.05}s` }"
             >
                 <div
-                    class="relative mb-6 flex h-28 w-full items-center justify-center overflow-hidden rounded-2xl border border-slate-50 transition-colors group-hover:border-slate-100 group-hover:bg-white"
+                    class="relative mb-6 flex h-28 w-full items-center justify-center overflow-hidden rounded-2xl border border-slate-50 transition-colors group-hover:border-slate-100"
                     :class="
                         convenio.logo
                             ? 'bg-avanzia-navy'
-                            : colorConvenio(convenio.color).fondo
+                            : [
+                                  colorConvenio(convenio.color).fondo,
+                                  'group-hover:bg-white',
+                              ]
                     "
                 >
-                    <!-- Los logos son blancos/para fondo oscuro -->
+                    <!-- Los logos son blancos/para fondo oscuro: su fondo no cambia al pasar el mouse -->
                     <img
                         v-if="convenio.logo"
                         :src="convenio.logo"
