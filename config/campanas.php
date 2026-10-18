@@ -9,10 +9,40 @@
  * - Para una campaña nueva: copiar un bloque, cambiar el grupo de WhatsApp, el color y el temario.
  *
  * Son páginas sin indexar (noindex) y fuera del sitemap.
+ *
+ * Al editar desde cPanel: cada texto va entre comillas simples y termina en coma. Un apóstrofo
+ * dentro del texto se escribe \' (p. ej. 'Taller d\'IA'). Si falta una coma o una comilla, el sitio
+ * entero da error 500: hacer antes una copia del archivo.
  */
 return [
 
     'actual' => 'ingenieria-pedagogica',
+
+    /*
+     * Textos de la página, iguales para todas las campañas. Una campaña puede cambiar
+     * cualquiera de ellos con su propio bloque 'textos' (ver el ejemplo comentado más abajo).
+     * Los textos "_resaltado" se muestran destacados: en amarillo, en negrita o subrayados.
+     */
+    'textos' => [
+        'progreso_hecho' => 'Registro',
+        'progreso_pendiente' => 'Paso Final Pendiente',
+        'titulo' => '¡Tu registro está casi listo!',
+        'mensaje_antes' => 'Solo falta',
+        'mensaje_resaltado' => '1 paso obligatorio',
+        'mensaje_despues' => 'para asegurar tu cupo y recibir los enlaces de Zoom.',
+        'boton' => 'UNIRME AL GRUPO',
+        'boton_ayuda' => 'Toca aquí para finalizar',
+        'advertencia_titulo' => '¡Atención!',
+        'advertencia_antes' => 'Los accesos a las clases, manuales y certificados se enviarán',
+        'advertencia_resaltado' => 'ÚNICAMENTE',
+        'advertencia_despues' => 'por este grupo de WhatsApp. Si no entras, perderás el curso.',
+        'nota_grupo' => 'Grupo cerrado y sin SPAM.',
+        'resumen' => 'Resumen de tu inscripción',
+        'etiqueta_capacitador' => 'Capacitador del Programa',
+        'titulo_temario' => 'Temario que estás a punto de recibir:',
+        'pregunta_final' => '¿Aún no te unes al grupo exclusivo?',
+        'boton_final' => 'Ir arriba para unirme al grupo',
+    ],
 
     'lista' => [
 
@@ -27,6 +57,10 @@ return [
                 'nombre' => 'Ing. Diego Avila',
                 'foto' => '/images/campanas/diego-avila.webp',
                 'insignia' => 'Google for Education Partner',
+            ],
+            // Textos propios de esta campaña (opcional). Ejemplo: quitar las // para cambiar el título.
+            'textos' => [
+                // 'titulo' => '¡Ya casi eres parte de Ingeniería Pedagógica!',
             ],
             'temario' => [
                 [

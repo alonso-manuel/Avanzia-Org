@@ -27,6 +27,17 @@ class CampanaTest extends TestCase
             );
     }
 
+    public function test_los_textos_comunes_se_pueden_cambiar_por_campana(): void
+    {
+        config(['campanas.lista.ingenieria-pedagogica.textos' => ['titulo' => 'Título propio']]);
+
+        $this->get(route('campana.gracias.curso', 'ingenieria-pedagogica'))
+            ->assertInertia(fn (Assert $page) => $page
+                ->where('campana.textos.titulo', 'Título propio')
+                ->where('campana.textos.boton', config('campanas.textos.boton'))
+            );
+    }
+
     public function test_no_se_indexa_ni_aparece_en_el_sitemap(): void
     {
         $this->get(route('campana.gracias'))

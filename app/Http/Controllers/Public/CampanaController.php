@@ -21,6 +21,9 @@ class CampanaController extends Controller
 
         abort_if($datos === null, 404);
 
+        // Textos comunes, con los que la campaña cambie por encima
+        $datos['textos'] = array_merge(config('campanas.textos'), $datos['textos'] ?? []);
+
         return Inertia::render('public/campana/Gracias', [
             'seo' => Seo::make(
                 title: "¡Falta un paso! | Avanzia - {$datos['curso']}",

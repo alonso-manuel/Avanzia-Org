@@ -40,7 +40,8 @@ function irArriba() {
 </script>
 
 <!--
-    Página de agradecimiento de campaña, sin layout (ver app.ts). Plantilla original: page-gracias-ingenieria.php.
+    Página de agradecimiento de campaña, sin layout (ver app.ts). Los textos y datos están en config/campanas.php;
+    aquí solo el diseño (cambiarlo requiere compilar con npm run build y subir build/). Plantilla original: page-gracias-ingenieria.php.
     Se muestra dentro del marco de landing.avanzia.org (redirección enmascarada de Spaceship).
 -->
 <template>
@@ -63,30 +64,31 @@ function irArriba() {
                         <span
                             class="flex items-center gap-1 rounded-full bg-green-500 px-3 py-1 text-xs font-bold text-white shadow-sm"
                         >
-                            <Check class="size-3" /> Registro
+                            <Check class="size-3" />
+                            {{ campana.textos.progreso_hecho }}
                         </span>
                         <div class="h-0.5 w-8 bg-white/40" />
                         <span
                             class="animate-pulse rounded-full bg-white px-3 py-1 text-xs font-bold text-[var(--campana)] shadow-sm"
                         >
-                            Paso Final Pendiente
+                            {{ campana.textos.progreso_pendiente }}
                         </span>
                     </div>
 
                     <h1
                         class="mb-4 text-3xl leading-tight font-black tracking-tight text-white drop-shadow-md md:text-5xl"
                     >
-                        ¡Tu registro está casi listo!
+                        {{ campana.textos.titulo }}
                     </h1>
                     <p
                         class="mb-8 max-w-lg text-lg font-medium text-white/95 md:text-xl"
                     >
-                        Solo falta
+                        {{ campana.textos.mensaje_antes }}
                         <span
                             class="rounded bg-yellow-400 px-2 py-0.5 font-bold text-black"
-                            >1 paso obligatorio</span
+                            >{{ campana.textos.mensaje_resaltado }}</span
                         >
-                        para asegurar tu cupo y recibir los enlaces de Zoom.
+                        {{ campana.textos.mensaje_despues }}
                     </p>
 
                     <div class="flecha mb-3 text-yellow-300">
@@ -102,11 +104,11 @@ function irArriba() {
                         >
                             <span class="flex items-center gap-3">
                                 <MessageCircle class="size-8" />
-                                UNIRME AL GRUPO
+                                {{ campana.textos.boton }}
                             </span>
                             <span
                                 class="mt-1 text-xs font-medium tracking-widest uppercase opacity-90"
-                                >Toca aquí para finalizar</span
+                                >{{ campana.textos.boton_ayuda }}</span
                             >
                         </a>
                     </div>
@@ -124,16 +126,19 @@ function irArriba() {
                     <p
                         class="text-sm leading-tight font-medium text-red-700 md:text-base"
                     >
-                        <strong>¡Atención!</strong> Los accesos a las clases,
-                        manuales y certificados se enviarán
-                        <strong class="underline">ÚNICAMENTE</strong> por este
-                        grupo de WhatsApp. Si no entras, perderás el curso.
+                        <strong>{{ campana.textos.advertencia_titulo }}</strong>
+                        {{ campana.textos.advertencia_antes }}
+                        <strong class="underline">{{
+                            campana.textos.advertencia_resaltado
+                        }}</strong>
+                        {{ campana.textos.advertencia_despues }}
                     </p>
                 </div>
                 <p
                     class="mt-4 flex items-center justify-center gap-1 text-xs font-medium text-gray-500"
                 >
-                    <Lock class="size-3" /> Grupo cerrado y sin SPAM.
+                    <Lock class="size-3" />
+                    {{ campana.textos.nota_grupo }}
                 </p>
             </div>
 
@@ -141,7 +146,7 @@ function irArriba() {
             <div class="bg-white p-6 md:p-10">
                 <div class="mb-8 text-center">
                     <h3 class="text-xl font-bold text-slate-800">
-                        Resumen de tu inscripción
+                        {{ campana.textos.resumen }}
                     </h3>
                     <div
                         class="mx-auto mt-3 h-1 w-16 rounded-full bg-[var(--campana)]"
@@ -192,7 +197,7 @@ function irArriba() {
                         <p
                             class="mb-1 text-xs font-bold tracking-wider text-[var(--campana)] uppercase"
                         >
-                            Capacitador del Programa
+                            {{ campana.textos.etiqueta_capacitador }}
                         </p>
                         <h2 class="mb-2 text-2xl font-bold text-slate-800">
                             {{ campana.capacitador.nombre }}
@@ -210,7 +215,7 @@ function irArriba() {
                     class="mb-6 flex items-center gap-2 text-lg font-bold text-gray-800"
                 >
                     <BookOpen class="size-5 text-[var(--campana)]" />
-                    Temario que estás a punto de recibir:
+                    {{ campana.textos.titulo_temario }}
                 </h4>
 
                 <div class="space-y-4">
@@ -250,7 +255,7 @@ function irArriba() {
                 <!-- Llamado secundario por si bajan hasta el final -->
                 <div class="mt-10 border-t border-gray-200 pt-8 text-center">
                     <p class="mb-4 text-sm font-medium text-gray-500">
-                        ¿Aún no te unes al grupo exclusivo?
+                        {{ campana.textos.pregunta_final }}
                     </p>
                     <button
                         type="button"
@@ -258,7 +263,7 @@ function irArriba() {
                         @click="irArriba"
                     >
                         <ArrowUp class="size-4" />
-                        Ir arriba para unirme al grupo
+                        {{ campana.textos.boton_final }}
                     </button>
                 </div>
             </div>
