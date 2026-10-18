@@ -16,7 +16,9 @@ void createInertiaApp({
     },
     // Por ahora solo existe la zona pública. Al agregar admin/ o instituto/, asignar su layout
     // por prefijo aquí (los del kit están en archivo/kit-admin/).
-    layout: () => PublicLayout,
+    // Las páginas de campaña ("¡Falta un paso!") van sin layout: sin menú ni pie que distraigan.
+    layout: (name) =>
+        name.startsWith('public/campana/') ? undefined : PublicLayout,
     withApp: (app) => {
         app.directive('focus', {
             mounted: (el: HTMLElement, shouldFocus) => {

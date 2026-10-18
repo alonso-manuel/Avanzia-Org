@@ -48,6 +48,9 @@
             <meta property="og:url" content="{{ $seo['url'] }}">
             <meta property="og:image" content="{{ $seo['image'] }}">
             <meta name="twitter:card" content="summary_large_image">
+            @if (! ($seo['indexar'] ?? true))
+                <meta name="robots" content="noindex, nofollow">
+            @endif
             <script type="application/ld+json">{!! \App\Support\Seo::jsonLd($seo['datosEstructurados'] ?? []) !!}</script>
         @else
             {{-- Login, panel y demás páginas privadas: fuera de los buscadores --}}

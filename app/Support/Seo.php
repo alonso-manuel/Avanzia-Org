@@ -10,13 +10,15 @@ class Seo
 {
     /**
      * @param  list<array<string, mixed>>  $datosEstructurados  Nodos JSON-LD propios de la página (cursos, etc.)
-     * @return array{title: string, description: string, url: string, image: string, datosEstructurados: list<array<string, mixed>>}
+     * @param  bool  $indexar  false para páginas que no deben aparecer en buscadores (p. ej. agradecimientos de campañas)
+     * @return array{title: string, description: string, url: string, image: string, datosEstructurados: list<array<string, mixed>>, indexar: bool}
      */
     public static function make(
         string $title,
         string $description,
         ?string $image = null,
         array $datosEstructurados = [],
+        bool $indexar = true,
     ): array {
         return [
             'title' => $title,
@@ -24,6 +26,7 @@ class Seo
             'url' => request()->url(),
             'image' => url($image ?? config('avanzia.imagen_social')),
             'datosEstructurados' => $datosEstructurados,
+            'indexar' => $indexar,
         ];
     }
 

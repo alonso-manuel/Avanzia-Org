@@ -21,5 +21,11 @@ defineProps<{ seo: Seo }>();
         />
         <meta head-key="og:url" property="og:url" :content="seo.url" />
         <meta head-key="og:image" property="og:image" :content="seo.image" />
+        <meta
+            v-if="!seo.indexar"
+            head-key="robots"
+            name="robots"
+            content="noindex, nofollow"
+        />
     </Head>
 </template>

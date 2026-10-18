@@ -6,4 +6,6 @@ export type Seo = {
     image: string;
     /** Nodos JSON-LD propios de la página; app.blade.php los escribe junto al de la organización. */
     datosEstructurados: Record<string, unknown>[];
+    /** false = la página no debe aparecer en buscadores (noindex). */
+    indexar: boolean;
 };

@@ -69,3 +69,13 @@ export type Paginado<T> = {
     to: number | null;
     path: string;
 };
+
+/** Página "¡Falta un paso!" de una campaña (config/campanas.php). */
+export type CampanaGracias = {
+    curso: string;
+    grupo_whatsapp: string;
+    color: string;
+    color_oscuro: string;
+    capacitador: { nombre: string; foto: string; insignia: string };
+    temario: { titulo: string; subtitulo: string; temas: string[] }[];
+};

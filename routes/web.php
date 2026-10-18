@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Public\CampanaController;
 use App\Http\Controllers\Public\InicioController;
 use App\Http\Controllers\Public\InteraccionController;
 use App\Http\Controllers\Public\OpinionController;
@@ -21,6 +22,12 @@ Route::middleware(CompartirDatosPublicos::class)->group(function () {
     Route::post('convenios/solicitud', [SolicitudConvenioController::class, 'store'])
         ->middleware('throttle:3,10')
         ->name('convenios.solicitud');
+
+    // Agradecimiento de campañas (landing.avanzia.org enmascara /gracias-por-inscribirte). Ver config/campanas.php
+    Route::get('gracias-por-inscribirte', [CampanaController::class, 'gracias'])->name('campana.gracias');
+    Route::get('gracias/{campana}', [CampanaController::class, 'gracias'])
+        ->where('campana', '[a-z0-9-]+')
+        ->name('campana.gracias.curso');
 
     // Mismas rutas que el WordPress anterior (sin barra final)
     Route::controller(PaginaController::class)->group(function () {

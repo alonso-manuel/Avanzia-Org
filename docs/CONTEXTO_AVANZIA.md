@@ -153,6 +153,8 @@ El layout de cada página se asigna por prefijo en `resources/js/app.ts` (`publi
 
 **Política de privacidad** reescrita (16/10/2026) según lo que hace el sitio: formularios (opiniones, convenios), IP, cookies (`avanzia_landing_session`, `XSRF-TOKEN`, `avanzia_visitante`), carrito en `localStorage`, Google y WhatsApp. Si se agrega analítica, pagos u otro formulario, actualizarla. Conviene revisión legal y verificar la inscripción del banco de datos ante la ANPD.
 
+**Páginas de campaña ("¡Falta un paso!")** (`config/campanas.php`, `CampanaController`, `pages/public/campana/Gracias.vue`): tras inscribirse desde una campaña de Facebook, el docente ve un botón gigante para unirse al grupo de WhatsApp del curso y el temario. `landing.avanzia.org` es una **redirección enmascarada de Spaceship** (marco) hacia `avanzia.org/gracias-por-inscribirte`, que muestra la campaña `actual`; `/gracias/{clave}` muestra cualquier otra. Van **sin layout** (sin menú ni pie), con `noindex` y fuera del sitemap. Campaña nueva = copiar un bloque en la config (grupo, color, capacitador, temario). Venían del tema Astra Child del WordPress (`page-gracias-ingenieria.php`).
+
 Toda ruta pública nueva va dentro del grupo con el middleware `CompartirDatosPublicos` en `routes/web.php`: comparte los convenios que muestra el layout en todas las páginas.
 
 ## 7. Límites del hosting (MUY IMPORTANTE)

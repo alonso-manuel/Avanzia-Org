@@ -56,7 +56,6 @@ return [
         'product/deepseek-educativo' => '/#cursos',
         'domina-canva-2025-diseno-facil-y-efectivo' => '/#cursos',
         'transforma-la-educacion-con-inteligencia-artificial' => '/#cursos',
-        'gracias-por-inscribirte' => '/',
         'wp-sitemap.xml' => '/sitemap.xml',
     ],
 
