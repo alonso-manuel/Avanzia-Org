@@ -45,9 +45,11 @@ class PaginasTest extends TestCase
     }
 
     #[DataProvider('paginas')]
-    public function test_la_url_antigua_con_barra_final_tambien_funciona(string $url): void
+    public function test_la_url_antigua_con_barra_final_tambien_funciona(string $url, string $componente): void
     {
-        $this->get($url.'/')->assertOk();
+        $this->get($url.'/')
+            ->assertOk()
+            ->assertInertia(fn (Assert $page) => $page->component($componente));
     }
 
     public function test_el_sitemap_incluye_las_paginas_publicas(): void
