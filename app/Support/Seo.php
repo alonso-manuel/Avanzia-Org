@@ -24,7 +24,7 @@ class Seo
             'title' => $title,
             'description' => $description,
             'url' => request()->url(),
-            'image' => url($image ?? config('avanzia.imagen_social')),
+            'image' => url()->to($image ?? config('avanzia.imagen_social')),
             'datosEstructurados' => $datosEstructurados,
             'indexar' => $indexar,
         ];
@@ -72,7 +72,7 @@ class Seo
     {
         return json_encode(
             ['@context' => 'https://schema.org', '@graph' => [self::organizacion(), ...$nodos]],
-            JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_HEX_TAG | JSON_HEX_AMP,
+            JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_HEX_TAG | JSON_HEX_AMP | JSON_THROW_ON_ERROR,
         );
     }
 }

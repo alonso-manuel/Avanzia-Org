@@ -24,7 +24,7 @@ Genera `avanzia-landing-produccion.zip` (~17 MB): frontend compilado, dependenci
 
 ## 2. Preparar el hosting (una sola vez)
 
-1. **PHP**: cPanel → _Select PHP Version_ → 8.3 o 8.4, con `pdo_mysql`, `mbstring`, `fileinfo`, `openssl`, `zip`.
+1. **PHP**: cPanel → _Select PHP Version_ → **8.4** (no 8.3: el sitio no arranca), con `pdo_mysql`, `mbstring`, `fileinfo`, `openssl`, `zip`.
 2. **Respaldo de la base de datos de Studio** (es la misma): cPanel → _Backup_ o _phpMyAdmin → Exportar_. Guardarlo fuera del servidor.
 3. **Subir y descomprimir**: _File Manager_ → en `/home/fmqndrdnls` crear la carpeta `avanzia-landing`, subir el .zip ahí y _Extract_. Borrar el .zip después.
 4. **`.env`**: copiar `.env.production.example` como `.env` y completar base de datos (la de Studio), contraseña del correo y, mientras se prueba, `APP_URL` con la dirección del sitio de prueba.

@@ -120,7 +120,7 @@ Pendiente: una página por curso (`/cursos/{slug}`) con su propio `seo` y JSON-L
 
 ## 6. Stack y estructura
 
-- **Laravel 13** (PHP ≥ 8.3), **Inertia 3**, **Vue 3 + TypeScript**, **Tailwind 4**, Vite (`vite-plus`).
+- **Laravel 13** (PHP ≥ 8.4: las dependencias de Symfony 8 lo exigen), **Inertia 3**, **Vue 3 + TypeScript**, **Tailwind 4**, Vite (`vite-plus`).
 - **Sin login ni panel por ahora.** El único panel de administración es el de Studio (sección 8). Fortify está instalado pero con `Fortify::ignoreRoutes()`: no hay `/login`, `/dashboard` ni `/settings`. Las páginas, layouts, componentes y tests del kit se guardaron en `archivo/kit-admin/` (no se compila ni se prueba), con instrucciones para restaurarlo.
 - **Wayfinder** genera las rutas tipadas para el frontend (`resources/js/actions`, `resources/js/routes`).
 - Panel de administración: **también con Inertia + Vue**. No usar Filament ni Livewire, para no mezclar dos formas de trabajar.
@@ -163,7 +163,7 @@ Producción: **Spaceship Web Hosting – plan Essential** (hosting compartido co
 
 - 1 CPU, **1 GB de RAM**, 20 GB NVMe, límite de **300 000 archivos**.
 - **SSH restringido (jailed)**. No hay procesos permanentes (ni Node, ni `queue:work` continuo, ni websockets).
-- PHP seleccionable en cPanel (usar 8.3 o 8.4). MariaDB/MySQL.
+- PHP seleccionable en cPanel (**usar 8.4 o superior**: con 8.3 el sitio no arranca). MariaDB/MySQL.
 - Se planea migrar a **VPS** más adelante (probablemente cuando arranque el instituto).
 
 Reglas que se derivan de esto:

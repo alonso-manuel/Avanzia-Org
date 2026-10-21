@@ -27,7 +27,7 @@ Studio es un proyecto **separado**, con su propio repositorio y despliegue.
 
 ## Stack
 
-- **Laravel 13** (PHP ≥ 8.3) con **Fortify** para la autenticación
+- **Laravel 13** (PHP ≥ 8.4: las dependencias de Symfony 8 lo exigen) con **Fortify** para la autenticación
 - **Inertia 3** + **Vue 3** + **TypeScript**
 - **Tailwind CSS 4** y Vite (`vite-plus`)
 - **Wayfinder** para las rutas tipadas en el frontend
@@ -35,7 +35,7 @@ Studio es un proyecto **separado**, con su propio repositorio y despliegue.
 
 ## Puesta en marcha local
 
-Requisitos: PHP 8.3 o superior, Composer y Node 20 o superior.
+Requisitos: PHP 8.4 o superior, Composer y Node 20 o superior.
 
 ```bash
 composer setup          # instala dependencias, crea .env, migra y compila

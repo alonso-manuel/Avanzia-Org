@@ -46,8 +46,10 @@ Route::middleware(CompartirDatosPublicos::class)->group(function () {
 Route::get('sitemap.xml', SitemapController::class)->name('sitemap');
 
 // URLs del WordPress anterior (config/avanzia.php)
+// Con Route::get y no Route::permanentRedirect: esta registra todos los métodos HTTP (incluido QUERY),
+// que Wayfinder no sabe tipar y rompe la comprobación de TypeScript.
 foreach (config('avanzia.redirecciones') as $antigua => $nueva) {
-    Route::permanentRedirect($antigua, $nueva);
+    Route::get($antigua, fn () => redirect($nueva, 301));
 }
 
 foreach (config('avanzia.eliminadas') as $eliminada) {

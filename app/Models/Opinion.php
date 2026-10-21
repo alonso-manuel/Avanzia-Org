@@ -3,12 +3,14 @@
 namespace App\Models;
 
 use App\Enums\EstadoOpinion;
+use Database\Factories\OpinionFactory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Opinion extends Model
 {
+    /** @use HasFactory<OpinionFactory> */
     use HasFactory;
 
     protected $table = 'opiniones';

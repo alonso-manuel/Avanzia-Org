@@ -17,7 +17,7 @@ class OpcionesOpinion
     {
         return [
             self::STUDIO,
-            ...Curso::publicados()->where('modalidad', ModalidadCurso::EnVivo)->pluck('titulo')->all(),
+            ...Curso::publicados()->where('modalidad', ModalidadCurso::EnVivo)->get()->map(fn (Curso $curso) => $curso->titulo)->all(),
             self::OTRO,
         ];
     }

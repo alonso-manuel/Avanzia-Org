@@ -4,14 +4,21 @@ namespace App\Models;
 
 use App\Enums\CategoriaCurso;
 use App\Enums\ModalidadCurso;
+use Database\Factories\CursoFactory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\DB;
 
+/**
+ * @property CategoriaCurso $categoria
+ * @property ModalidadCurso $modalidad
+ * @property-read int|null $interesados Solo si se cargó conInteresados()
+ */
 class Curso extends Model
 {
+    /** @use HasFactory<CursoFactory> */
     use HasFactory;
 
     protected $table = 'cursos';
