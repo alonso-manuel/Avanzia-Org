@@ -20,10 +20,27 @@ class CampanaTest extends TestCase
         $this->get(route('campana.gracias'))
             ->assertOk()
             ->assertInertia(fn (Assert $page) => $page
-                ->component('public/campana/Gracias')
+                ->component('public/campana/'.($actual['vista'] ?? 'Gracias'))
                 ->where('campana.grupo_whatsapp', $actual['grupo_whatsapp'])
                 ->has('campana.temario', 3)
                 ->where('seo.indexar', false)
+            );
+    }
+
+    public function test_cada_campana_usa_su_diseno_y_su_grupo(): void
+    {
+        $this->get(route('campana.gracias.curso', 'investigacion'))
+            ->assertInertia(fn (Assert $page) => $page
+                ->component('public/campana/GraciasSeminario')
+                ->where('campana.grupo_whatsapp', 'https://chat.whatsapp.com/Bx1wEydrYWY4hAanT9SBH5')
+                ->where('campana.textos.boton', 'TOCA AQUÍ PARA FINALIZAR')
+                ->where('seo.title', '¡Gracias por Inscribirte! | Avanzia - IA en Investigación')
+            );
+
+        $this->get(route('campana.gracias.curso', 'ingenieria-pedagogica'))
+            ->assertInertia(fn (Assert $page) => $page
+                ->component('public/campana/Gracias')
+                ->where('campana.grupo_whatsapp', 'https://chat.whatsapp.com/DTfERpApJzVEgj1tEzp5hF')
             );
     }
 

@@ -24,9 +24,11 @@ class CampanaController extends Controller
         // Textos comunes, con los que la campaña cambie por encima
         $datos['textos'] = array_merge(config('campanas.textos'), $datos['textos'] ?? []);
 
-        return Inertia::render('public/campana/Gracias', [
+        $vista = $datos['vista'] ?? 'Gracias';
+
+        return Inertia::render("public/campana/{$vista}", [
             'seo' => Seo::make(
-                title: "¡Falta un paso! | Avanzia - {$datos['curso']}",
+                title: $datos['titulo_pagina'] ?? "¡Falta un paso! | Avanzia - {$datos['curso']}",
                 description: "Únete al grupo de WhatsApp del curso {$datos['curso']} para recibir los enlaces de las clases, los manuales y tu certificado.",
                 indexar: false,
             ),
