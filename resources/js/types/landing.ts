@@ -71,7 +71,7 @@ export type Paginado<T> = {
 };
 
 /** Página "¡Falta un paso!" de una campaña (config/campanas.php). */
-export type CampanaSeminario = {
+export type CampanaGracias = {
     curso: string;
     grupo_whatsapp: string;
     color: string;
@@ -97,36 +97,6 @@ export type CampanaSeminario = {
         | 'etiqueta_certificacion'
         | 'etiqueta_capacitador'
         | 'titulo_temario'
-        | 'boton_final',
-        string
-    >;
-};
-
-export type CampanaGracias = {
-    curso: string;
-    grupo_whatsapp: string;
-    color: string;
-    color_oscuro: string;
-    capacitador: { nombre: string; foto: string; insignia: string };
-    temario: { titulo: string; subtitulo: string; temas: string[] }[];
-    textos: Record<
-        | 'progreso_hecho'
-        | 'progreso_pendiente'
-        | 'titulo'
-        | 'mensaje_antes'
-        | 'mensaje_resaltado'
-        | 'mensaje_despues'
-        | 'boton'
-        | 'boton_ayuda'
-        | 'advertencia_titulo'
-        | 'advertencia_antes'
-        | 'advertencia_resaltado'
-        | 'advertencia_despues'
-        | 'nota_grupo'
-        | 'resumen'
-        | 'etiqueta_capacitador'
-        | 'titulo_temario'
-        | 'pregunta_final'
         | 'boton_final',
         string
     >;

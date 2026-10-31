@@ -20,35 +20,18 @@ class CampanaTest extends TestCase
         $this->get(route('campana.gracias'))
             ->assertOk()
             ->assertInertia(fn (Assert $page) => $page
-                ->component('public/campana/'.($actual['vista'] ?? 'Gracias'))
+                ->component('public/campana/Gracias')
                 ->where('campana.grupo_whatsapp', $actual['grupo_whatsapp'])
                 ->has('campana.temario', 3)
                 ->where('seo.indexar', false)
             );
     }
 
-    public function test_cada_campana_usa_su_diseno_y_su_grupo(): void
-    {
-        $this->get(route('campana.gracias.curso', 'investigacion'))
-            ->assertInertia(fn (Assert $page) => $page
-                ->component('public/campana/GraciasSeminario')
-                ->where('campana.grupo_whatsapp', 'https://chat.whatsapp.com/Bx1wEydrYWY4hAanT9SBH5')
-                ->where('campana.textos.boton', 'TOCA AQUÍ PARA FINALIZAR')
-                ->where('seo.title', '¡Gracias por Inscribirte! | Avanzia - IA en Investigación')
-            );
-
-        $this->get(route('campana.gracias.curso', 'ingenieria-pedagogica'))
-            ->assertInertia(fn (Assert $page) => $page
-                ->component('public/campana/Gracias')
-                ->where('campana.grupo_whatsapp', 'https://chat.whatsapp.com/DTfERpApJzVEgj1tEzp5hF')
-            );
-    }
-
     public function test_los_textos_comunes_se_pueden_cambiar_por_campana(): void
     {
-        config(['campanas.lista.ingenieria-pedagogica.textos' => ['titulo' => 'Título propio']]);
+        config(['campanas.lista.investigacion.textos' => ['titulo' => 'Título propio']]);
 
-        $this->get(route('campana.gracias.curso', 'ingenieria-pedagogica'))
+        $this->get(route('campana.gracias.curso', 'investigacion'))
             ->assertInertia(fn (Assert $page) => $page
                 ->where('campana.textos.titulo', 'Título propio')
                 ->where('campana.textos.boton', config('campanas.textos.boton'))
@@ -65,7 +48,7 @@ class CampanaTest extends TestCase
 
     public function test_cada_campana_tiene_su_url_y_las_inexistentes_dan_404(): void
     {
-        $this->get(route('campana.gracias.curso', 'ingenieria-pedagogica'))->assertOk();
+        $this->get(route('campana.gracias.curso', 'investigacion'))->assertOk();
         $this->get('/gracias/no-existe')->assertNotFound();
     }
 
